@@ -88,95 +88,6 @@ const infoSheet = {
     }
   }
 
-//  const consent = {
-//       type: jsPsychHtmlButtonResponse,
-//       stimulus: `
-//       <div>
-//         <h2 style="text-align:center; margin-bottom: 30px;">Consent Form</h2>
-//       </div>
-//       <div style="text-align: left;
-//         max-width: 900px;
-//         margin: 0 auto;
-//         line-height: 1.6;">
-    
-//         <p>
-//           Please read through the consent form carefully. If you are happy to proceed, please click <strong>'I agree'</strong> at the bottom of the page. If you do not consent to taking part, please close down the window and stop the experiment. 
-//         </p>
-//         <br>
-    
-//         <ul>
-    
-//           <li style="margin-bottom: 15px;">
-//             I understand that by signing below I am agreeing to take part in the University of Sussex research described here, and that I have read and understood this information sheet.
-//           </li>
-//           <li style="margin-bottom: 15px;">
-//             I understand that my participation is entirely voluntary, that I can choose not to participate in part or all of the study, and that I can withdraw at any stage without having to give a reason and without being penalised in any way (e.g., if I am a student, my decision whether or not to take part will not affect my grades).
-//           </li>
-//           <li style="margin-bottom: 15px;">
-//             I understand I can request without penalty that my data be withdrawn and deleted even after the data collection is complete, any time up until the results are analysed (May 2026).
-//           </li>
-//           <li style="margin-bottom: 15px;">
-//             I understand that my personal data will be used for the purposes of this research study and will be handled in accordance with Data Protection legislation. 
-//           </li>
-//           <li style="margin-bottom: 15px;">
-//             I understand that the University's Privacy Notice provides further information on how the University uses personal data in its research.
-//           </li>
-//           <li style="margin-bottom: 15px;">
-//             I understand that my collected data will be stored in a de-identified way (e.g. using ID numbers not names), and kept separate from other details about me (e.g. from the consent form).  Electronic data will be stored securely on a University managed system, and hard-copies will be stored behind a locked door. Anonymised data may be shared with the scientific community on the website www.osf.io. 
-//           </li>
-//           <li style="margin-bottom: 15px;">
-//             I understand that my identity will remain confidential in any written reports of this research, and that no information I disclose will lead to the identification in those reports of any individual either by the researchers or by any other party, without first obtaining my written permission.
-//           </li>
-//           <li style="margin-bottom: 15px;">
-//             I understand that my name and data will not be shared with any third party outside the research group, unless I later provide written permission. 
-//           </li>
-    
-//         </ul>
-    
-//       </div>
-//       `,
-//       choices: ['I agree'],
-//       data: {
-//         trial_section: 'consent'
-//       }
-//      };
-    
-    // const consent = {
-    //   type: jsPsychSurveyMultiSelect,
-    //   preamble: `
-    //     <h2 style="text-align:center; margin-bottom: 20px;">Consent Form</h2>
-    //     <p style="max-width:900px;margin:0 auto;line-height:1.6;">
-    //       Please read through the consent form carefully. If you are happy to proceed,
-    //       please tick <b>every</b> box and click <b>I agree</b>. If you do not consent,
-    //       please close the window (via Esc) and stop the experiment.
-    //     </p>
-    //   `,
-    //   questions: [
-    //     {
-    //       prompt: "By continuing, I confirm that:",
-    //       name: "consent_items",
-    //       options: [
-    //         "I understand that by signing below I am agreeing to take part in the University of Sussex research described here, and that I have read and understood this information sheet.",
-    //         "I understand that my participation is entirely voluntary, that I can choose not to participate in part or all of the study, and that I can withdraw at any stage without having to give a reason and without being penalised in any way (e.g., if I am a student, my decision whether or not to take part will not affect my grades).",
-    //         "I understand I can request without penalty that my data be withdrawn and deleted even after the data collection is complete, any time up until the results are analysed (May 2026).",
-    //         "I understand that my personal data will be used for the purposes of this research study and will be handled in accordance with Data Protection legislation.",
-    //         "I understand that the University's Privacy Notice provides further information on how the University uses personal data in its research.",
-    //         "I understand that my collected data will be stored in a de-identified way (e.g. using ID numbers not names), and kept separate from other details about me (e.g. from the consent form). Electronic data will be stored securely on a University managed system, and hard-copies will be stored behind a locked door. Anonymised data may be shared with the scientific community on the website www.osf.io.",
-    //         "I understand that my identity will remain confidential in any written reports of this research, and that no information I disclose will lead to the identification in those reports of any individual either by the researchers or by any other party, without first obtaining my written permission.",
-    //         "I understand that my name and data will not be shared with any third party outside the research group, unless I later provide written permission."
-    //       ],
-    //       required: true
-    //     }
-    //   ],
-    //   button_label: "I agree",
-    //   data: { trial_section: "consent" },
-    //   on_finish: (data) => {
-    //     // require all 8 items checked
-    //     const chosen = data.response?.consent_items ?? [];
-    //     data.consented_all = chosen.length === 8;
-    //   }
-    // };
-
     const consent = {
       type: jsPsychSurveyHtmlForm,
       preamble: `
@@ -188,7 +99,7 @@ const infoSheet = {
         </p>
       `,
       html: `
-        <div style="max-width:900px;margin: 0 auto; line-height:1.6;">
+        <div style="max-width:900px;margin: 0 auto; line-height:1.6; text-align:left">
           <p><b>By continuing, I confirm that:</b></p>
     
           <label style="display:block; margin: 10px 0;">

@@ -147,11 +147,11 @@ trials.forEach(trial => {
     });
 
     // NOW save (LOCAL TESTING ONLY)
-    jsPsych.data.get().localSave('csv', 'debug_local.csv');
+    //jsPsych.data.get().localSave('csv', 'debug_local.csv');
     //jsPsych.data.get().filter({trial_section: 'task'}).localSave('csv','task_only.csv')
 
     // Optional debug
-    console.log(jsPsych.data.get().values());
+    //console.log(jsPsych.data.get().values());
     jsPsych.data.displayData();
   }
 });

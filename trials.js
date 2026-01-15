@@ -358,14 +358,14 @@ const correctAnswers = {
     }
   }
   
-  // const debrief = {
-  //   type: jsPsychHtmlButtonResponse,
-  //   data: {
-  //     trial_section: 'debrief'
-  //   },
-  //   choices: ['End Experiment'],
-  //   stimulus: "<p>Thank you for taking part in this study. Some individuals with (diagnosed or trait) ADHD often make small mistakes on forms, such as forgetting to fill in questions etc. The aim was to try and induce this specific symptom of ADHD, referred to as: 'often makes careless mistakes' by using of a lengthy multiple choice quiz. Please note that if you did miss questions in this experiment, it is not necessarily indicative of ADHD and sufficient for a diagnosis.</p>"
-  // };
+  const debrief = {
+    type: jsPsychHtmlButtonResponse,
+    data: {
+      trial_section: 'debrief'
+    },
+    choices: ['End Experiment'],
+    stimulus: "<p>Thank you for taking part in this study. Some individuals with (diagnosed or trait) ADHD often make small mistakes on forms, such as forgetting to fill in questions etc. The aim was to try and induce this specific symptom of ADHD, referred to as: 'often makes careless mistakes' by using of a lengthy multiple choice quiz. Please note that if you did miss questions in this experiment, it is not necessarily indicative of ADHD and sufficient for a diagnosis.</p>"
+  };
   
   const end_test = {
     type: jsPsychHtmlButtonResponse,
@@ -373,7 +373,7 @@ const correctAnswers = {
       trial_section: 'end'
     },
     choices: ['End Experiment'],
-    stimulus: "<p>Thankyou for taking part in this expeirment. Please click to end the experiment. Please return to Qualtrics to complete the half of the study. You will not recieve credits for only completing this experiment</p>"
+    stimulus: "<p>Please click to end the experiment.</p>"
   };
   
   // const save_summary_trial = {
@@ -464,6 +464,7 @@ const correctAnswers = {
   //       retry_rts_mean,
   //       skipped_correct_retry: retry_correct,
   //       skipped_incorrect_retry: retry_incorrect
+  //       
   //     };
   //   }
   // };
