@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Questionnaire</title>
+  <script src="https://unpkg.com/jspsych@7.3.4"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-survey-multi-choice@1.1.3"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.2.0"></script> 
+  <script src="https://unpkg.com/@jspsych/plugin-survey-html-form@1.0.3"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-fullscreen@2.1.0"></script>
+  <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
+  <link href="https://unpkg.com/jspsych@7.3.4/css/jspsych.css" rel="stylesheet" type="text/css" />
+  <script src = "trials.js"></script>
+  <script src = "consent.js"></script>
+  <script src = demographics.js></script>
+  <style> 
+    input[type="radio"]:checked {
+      accent-color: black
+    }
+    .jspsych-btn {
+      margin-bottom: 40px;
+      margin-top: 30px;
+      padding: 10px;
+      font-size: 16px;
+    }
+  </style>
+</head> 
+<body> 
+  <label>
+    <input type="radio" name="choice" checked>
+  </label>
+</body>
+<script>
+
+let skipped_glob = []; 
+
+// INITIATE JSPSYCH ================================================================
+
+const jsPsych = initJsPsych({
+  on_finish: function () {
+
+    const trials = jsPsych.data.get().filter({
+      trial_section: 'task' // Only relevant pages included in custom calculations.
+    }).values();
+
+    // COUNTING VARIABLES ================================================================
+
+    let total_correct = 0;
+    let total_answered = 0;
+    let all_rts = [];
+    let retry_rts = [];
+    let rt_after_skip = [];
+
+    let skipped_questions = new Set(); 
+    let retry_correct = 0;
+    let retry_incorrect = 0;
+
+    // CALCULATIONS 1: accuracy, RTs, skipped ================================================================
+
+    trials.forEach(trial => { 
+      if (!trial.rt_per_question) return;
+
+      const qnames = Object.keys(trial.rt_per_question); 
+
+      qnames.forEach((q, idx) => {
+        const rt_custom = trial.rt_per_question[q]; 
+        const acc = trial.accuracy_per_question[q];
+        const wasSkipped = trial.skipped[q];
+
+        if (acc === true) total_correct++;
+        if (acc !== null) total_answered++; 
+
+        if (rt_custom !== null && !q.endsWith("_retry")) {
+          all_rts.push(rt_custom); }
+
+        if(rt_custom !== null && q.endsWith("_retry")) {
+          retry_rts.push(rt_custom); }
+
+        if (wasSkipped) { 
+          skipped_questions.add(q);
+
+          let foundNext = false;
+
+          for (let j = idx + 1; j < qnames.length; j++) { 
+            const nextQ = qnames[j]; 
+            const nextRT = trial.rt_per_question[nextQ]; 
+
+            if (nextRT !== null) { 
+              rt_after_skip.push(nextRT);
+              foundNext = true;
+               break;
+              }
+            }
+
+          if (!foundNext) { 
+            if (trial.submit_latency_from_last !== undefined && trial.submit_latency_from_last !== null) {
+              rt_after_skip.push(trial.submit_latency_from_last);
+            }
+          }
+        }
+      });
+    });
+
+    // CALCULATIONS 2: retries ================================================================
+
+trials.forEach(trial => {
+  if (!trial.response) return;
+
+  Object.entries(trial.response).forEach(([q, response]) => {
+
+    if (!q.endsWith('_retry')) return; 
+
+    const base_q = q.replace('_retry', ''); 
+
+    if (!skipped_questions.has(base_q)) return; 
+
+    if (correctAnswers[base_q] === response) {
+      retry_correct++;
+    } else {
+      retry_incorrect++;
+    }
+  });
+});
+
+    // PARTICIPANT-LEVEL VARIABLES ================================================================
+
+    const accuracy_overall =
+      total_answered > 0 ? total_correct / total_answered : null;
+
+    const rt_overall_mean =
+      all_rts.length > 0 ? all_rts.reduce((a, b) => a + b, 0) / all_rts.length : null;
+
+    const rt_after_skip_mean =
+      rt_after_skip.length > 0 ? rt_after_skip.reduce((a, b) => a + b, 0) / rt_after_skip.length : null;
+
+    const retry_rts_mean = 
+      retry_rts.length > 0 ? retry_rts.reduce((a, b) => a + b,0) /retry_rts.length : null;
+
+    //================================================================================================
+
+    jsPsych.data.addProperties({
+        accuracy_overall,
+        rt_overall_mean,
+        retry_rts_mean,
+        rt_after_skip_mean,
+        skipped_correct_retry: retry_correct,
+        skipped_incorrect_retry: retry_incorrect
+    });
+
+    // NOW save (LOCAL TESTING ONLY)
+    jsPsych.data.get().localSave('csv', 'debug_local.csv');
+    //jsPsych.data.get().filter({trial_section: 'task'}).localSave('csv','task_only.csv')
+
+    // Optional debug
+    console.log(jsPsych.data.get().values());
+    jsPsych.data.displayData();
+  }
+});
+
+// SUBJECT ID ================================================================
+const subject_id = jsPsych.randomization.randomID(6);
+const filename = `${subject_id}.csv`;
+
+// ADD CUSTOM LOGIC ================================================================
+
+function addSurveyLogic(trial) {
+
+  trial.on_load = function() {
+    if (typeof trial.questions === "function") {
+      trial.questions = trial.questions();
+    }
+    
+    // PER PAGE TRACKING VARIABLES ================================================================
+    window.last_question_time = performance.now(); 
+    window.rt_data = {};
+    window.acc_data = {}; 
+    window.answered = {}; 
+    window.page_start_time = performance.now();
+    
+    trial.questions.forEach(q => {
+      window.answered[q.name] = false;
+      window.rt_data[q.name] = null;
+      window.acc_data[q.name] = null;
+    });
+
+    // // Custom tracking logic via Event Listeners ------------------------------------------------
+
+    setTimeout(() => {
+      const radios = document.querySelectorAll("input[type='radio']");
+      radios.forEach(radio => {
+        radio.addEventListener("click", function(event) {
+          let now = performance.now();
+
+          const qIndex = parseInt(event.target.name.replace("jspsych-survey-multi-choice-response-",""));
+
+          const qname = trial.questions[qIndex].name;
+
+          const response = event.target.value;
+   
+          window.answered[qname] = true;
+
+          window.rt_data[qname] = now - window.last_question_time;
+          window.last_question_time = now;
+    
+          let base_qname = qname.endsWith("_retry") ? qname.replace("_retry", "") : qname;
+          
+          if (correctAnswers[base_qname] !== undefined) {
+            window.acc_data[qname] =
+            response === correctAnswers[base_qname]; 
+        } else {
+            window.acc_data[qname] = null;
+        }}
+        );  
+      } 
+    );
+    }, 100); 
+  };
+
+  // ON FINISH ================================================================
+
+  trial.on_finish = function(data) {
+
+    data.submit_latency_from_last = performance.now() - window.last_question_time;
+
+    trial.questions.forEach(q => {
+      if(!window.answered[q.name]){
+        window.rt_data[q.name] = null;
+        window.acc_data[q.name] = null;
+        skipped_glob.push({
+          prompt: q.prompt,
+          name: q.name + "_retry",
+          original_name: q.name,
+          options: q.options
+        });
+      }
+    });
+
+    data.rt_per_question = window.rt_data; 
+    data.accuracy_per_question = window.acc_data; 
+    data.skipped = {}; 
+    for ( let i = 0; i < trial.questions.length; i++) { 
+      let question = trial.questions[i]; 
+      let questionName = question.name;
+      let answeredValue = window.answered[questionName]; 
+      let wasSkipped; 
+      if (answeredValue === false) { 
+        wasSkipped = true; 
+      } else {
+        wasSkipped = false; 
+      }
+      data.skipped[questionName] = wasSkipped; 
+    }
+    
+//     // ---- FLATTEN per-question RTs ----
+// if (data.rt_per_question) {
+//   for (let key in data.rt_per_question) {
+//     data["rt_" + key] = data.rt_per_question[key];  
+//   }
+// }
+
+// // ---- FLATTEN per-question accuracy ----
+// if (data.accuracy_per_question) {
+//   for (let key in data.accuracy_per_question) {
+//     data["acc_" + key] = data.accuracy_per_question[key];
+//   }
+// }
+
+// // ---- FLATTEN skipped flags ----
+// if (data.skipped) {
+//   for (let key in data.skipped) {
+//     data["skipped_" + key] = data.skipped[key]; 
+//   }
+// }
+    };
+
+  return trial;
+}
+
+// PARTICIPANT ID DISPLAY SCREEN ================================================================
+// // Participants must use this to withdraw data. 
+
+const display_id = {
+    type: jsPsychHtmlButtonResponse,
+    stimulus: `
+      <p><strong>Your Participant ID is:</strong></p>
+      <p style="font-size: 24px;">${subject_id}</p>
+      <p>Please write this ID down for your records.</p>
+    `,
+    choices: ["Continue"]
+  };
+
+
+// ADD CUSTOM LOGIC/COUNTERBALANCING AND PUSH ================================================================
+
+const page1_trial = addSurveyLogic(page1_qs);
+const page2_trial = addSurveyLogic(page2_qs);
+const page3_trial = addSurveyLogic(page3_qs);
+const page4_trial = addSurveyLogic(page4_qs);
+
+orderRandomisation = jsPsych.randomization.shuffle([page1_trial, page2_trial, page3_trial]);
+
+// INITIALISE TIMELINE ================================================================
+
+var timeline = []
+
+timeline.push({ type: jsPsychFullscreen, fullscreen_mode: true })
+timeline.push(display_id)
+
+// INFOSHEET, CONSENT, INSTRUCTIONS ------------------------------------------------
+
+timeline.push(infoSheet)
+timeline.push(consent)
+timeline.push(instructions)
+
+
+// // Task Pages ------------------------------------------------
+
+timeline.push(...orderRandomisation)
+timeline.push(page4_trial)
+
+
+// // Task Pages ------------------------------------------------
+//timeline.push(asrs)
+
+timeline.push(demographics)
+
+// // Save data via DataPipe ------------------------------------------------
+
+const save_data = {
+    type: jsPsychPipe,
+    action: "save",
+    experiment_id: "PDziWg9wxGbF",
+    filename: filename,
+    data_string: ()=>jsPsych.data.get().csv()
+  };
+
+// // Exit Fullscreen ------------------------------------------------
+timeline.push(end_test)
+timeline.push({ type: jsPsychFullscreen, fullscreen_mode: false })
+//timeline.push(endscreen)
+
+// RUN THE TIMELINE ================================================================
+jsPsych.run(timeline);
+
+    </script>
+</html>
