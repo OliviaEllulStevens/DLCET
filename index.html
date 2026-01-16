@@ -11,6 +11,7 @@
   <script src="https://unpkg.com/@jspsych/plugin-survey-multi-choice@1.1.3"></script>
   <script src="https://unpkg.com/@jspsych/plugin-html-button-response@1.2.0"></script> 
   <script src="https://unpkg.com/@jspsych/plugin-survey-html-form@1.0.3"></script>
+  <script src="https://unpkg.com/@jspsych/plugin-call-function@1.1.0"></script>
   <script src="https://unpkg.com/@jspsych/plugin-fullscreen@2.1.0"></script>
   <script src="https://unpkg.com/@jspsych-contrib/plugin-pipe"></script>
   <script src="https://unpkg.com/@jspsych/plugin-survey@1.0.1"></script>
@@ -54,125 +55,20 @@ let skipped_glob = [];
 // INITIATE JSPSYCH ================================================================
 
 const jsPsych = initJsPsych({
-  on_finish: function () {
+  // on_finish: function () {
+  //   const trials = jsPsych.data.get().filter({
+  //     trial_section: 'task' // Only relevant pages included in custom calculations.
+  //   }).values();
 
-    const trials = jsPsych.data.get().filter({
-      trial_section: 'task' // Only relevant pages included in custom calculations.
-    }).values();
+  // NOW save (LOCAL TESTING ONLY)
+  //jsPsych.data.get().localSave('csv', 'debug_local.csv');
+  //jsPsych.data.get().filter({trial_section: 'task'}).localSave('csv','task_only.csv')
 
-    // COUNTING VARIABLES ================================================================
+  // Optional debug
+  //console.log(jsPsych.data.get().values());
+  //jsPsych.data.displayData();
+  //  }
 
-    let total_correct = 0;
-    let total_answered = 0;
-    let all_rts = [];
-    let retry_rts = [];
-    let rt_after_skip = [];
-
-    let skipped_questions = new Set(); 
-    let retry_correct = 0;
-    let retry_incorrect = 0;
-
-    // CALCULATIONS 1: accuracy, RTs, skipped ================================================================
-
-    trials.forEach(trial => { 
-      if (!trial.rt_per_question) return;
-
-      const qnames = Object.keys(trial.rt_per_question); 
-
-      qnames.forEach((q, idx) => {
-        const rt_custom = trial.rt_per_question[q]; 
-        const acc = trial.accuracy_per_question[q];
-        const wasSkipped = trial.skipped[q];
-
-        if (acc === true) total_correct++;
-        if (acc !== null) total_answered++; 
-
-        if (rt_custom !== null && !q.endsWith("_retry")) {
-          all_rts.push(rt_custom); }
-
-        if(rt_custom !== null && q.endsWith("_retry")) {
-          retry_rts.push(rt_custom); }
-
-        if (wasSkipped) { 
-          skipped_questions.add(q);
-
-          let foundNext = false;
-
-          for (let j = idx + 1; j < qnames.length; j++) { 
-            const nextQ = qnames[j]; 
-            const nextRT = trial.rt_per_question[nextQ]; 
-
-            if (nextRT !== null) { 
-              rt_after_skip.push(nextRT);
-              foundNext = true;
-               break;
-              }
-            }
-
-          if (!foundNext) { 
-            if (trial.submit_latency_from_last !== undefined && trial.submit_latency_from_last !== null) {
-              rt_after_skip.push(trial.submit_latency_from_last);
-            }
-          }
-        }
-      });
-    });
-
-    // CALCULATIONS 2: retries ================================================================
-
-trials.forEach(trial => {
-  if (!trial.response) return;
-
-  Object.entries(trial.response).forEach(([q, response]) => {
-
-    if (!q.endsWith('_retry')) return; 
-
-    const base_q = q.replace('_retry', ''); 
-
-    if (!skipped_questions.has(base_q)) return; 
-
-    if (correctAnswers[base_q] === response) {
-      retry_correct++;
-    } else {
-      retry_incorrect++;
-    }
-  });
-});
-
-    // PARTICIPANT-LEVEL VARIABLES ================================================================
-
-    const accuracy_overall =
-      total_answered > 0 ? total_correct / total_answered : null;
-
-    const rt_overall_mean =
-      all_rts.length > 0 ? all_rts.reduce((a, b) => a + b, 0) / all_rts.length : null;
-
-    const rt_after_skip_mean =
-      rt_after_skip.length > 0 ? rt_after_skip.reduce((a, b) => a + b, 0) / rt_after_skip.length : null;
-
-    const retry_rts_mean = 
-      retry_rts.length > 0 ? retry_rts.reduce((a, b) => a + b,0) /retry_rts.length : null;
-
-    //================================================================================================
-
-    jsPsych.data.addProperties({
-        subject_id,
-        accuracy_overall,
-        rt_overall_mean,
-        retry_rts_mean,
-        rt_after_skip_mean,
-        skipped_correct_retry: retry_correct,
-        skipped_incorrect_retry: retry_incorrect
-    });
-
-    // NOW save (LOCAL TESTING ONLY)
-    //jsPsych.data.get().localSave('csv', 'debug_local.csv');
-    //jsPsych.data.get().filter({trial_section: 'task'}).localSave('csv','task_only.csv')
-
-    // Optional debug
-    //console.log(jsPsych.data.get().values());
-    //jsPsych.data.displayData();
-  }
 });
 
 // SUBJECT ID ================================================================
@@ -234,7 +130,6 @@ function addSurveyLogic(trial) {
     );
     }, 100); 
   };
-
   
 
   // ON FINISH ================================================================
@@ -358,20 +253,40 @@ timeline.push(demographics)
 // // End Experiment ------------------------------------------------
 timeline.push(debrief)
 timeline.push(display_id_2)
-timeline.push(end_test)
+
 
 // // Save data via DataPipe -------
-const save_data = {
+const save_csv1 = {
     type: jsPsychPipe,
     action: "save",
     experiment_id: "PDziWg9wxGbF",
-    filename: filename,
+    filename: `${subject_id}_full.csv`,
     data_string: ()=>jsPsych.data.get().csv()
   };
 
-timeline.push(save_data)
+const save_csv2 = {
+    type: jsPsychPipe,
+    action: "save",
+    experiment_id: "PDziWg9wxGbF",
+    filename: `${subject_id}_summary.csv`,
+    data_string: ()=>jsPsych.data.get().filter({trial_section: "summary"}).csv()
+  };
+
+  const save_json = {
+    type: jsPsychPipe,
+    action: "save",
+    experiment_id: "PDziWg9wxGbF",
+    filename: `${subject_id}_full.json`,
+    data_string: ()=>jsPsych.data.get().json()
+  };
+
+const save_data = [save_csv1, save_csv2, save_json];
+
+timeline.push(save_summary_trial)
+timeline.push(...save_data)
+timeline.push(end_test)
 timeline.push({ type: jsPsychFullscreen, fullscreen_mode: false })
-//timeline.push(endscreen) ***************************************************************************************************************** Todo
+
 
 // RUN THE TIMELINE ================================================================
 jsPsych.run(timeline);

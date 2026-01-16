@@ -345,102 +345,119 @@ const correctAnswers = {
           trial_section: "debrief"}
     };
 
+    const save_summary_trial = {
+      type: jsPsychCallFunction,
+      func: () => {
+    
+        const trials = jsPsych.data.get().filter({ trial_section: 'task' }).values();
+    
+        // COUNTING VARIABLES ================================================================
+        let total_correct = 0;
+        let total_answered = 0;
+        let all_rts = [];
+        let retry_rts = [];
+        let rt_after_skip = [];
+    
+        let skipped_questions = new Set();
+        let retry_correct = 0;
+        let retry_incorrect = 0;
+    
+        // CALCULATIONS 1: accuracy, RTs, skipped ================================================================
+        trials.forEach(trial => {
+          if (!trial.rt_per_question) return;
+    
+          const qnames = Object.keys(trial.rt_per_question);
+    
+          qnames.forEach((q, idx) => {
+            const rt_custom = trial.rt_per_question[q];
+            const acc = trial.accuracy_per_question[q];
+            const wasSkipped = trial.skipped[q];
+    
+            if (acc === true) total_correct++;
+            if (acc !== null) total_answered++;
+    
+            if (rt_custom !== null && !q.endsWith("_retry")) all_rts.push(rt_custom);
+            if (rt_custom !== null && q.endsWith("_retry")) retry_rts.push(rt_custom);
+    
+            if (wasSkipped) {
+              skipped_questions.add(q);
+    
+              let foundNext = false;
+              for (let j = idx + 1; j < qnames.length; j++) {
+                const nextQ = qnames[j];
+                const nextRT = trial.rt_per_question[nextQ];
+    
+                if (nextRT !== null) {
+                  rt_after_skip.push(nextRT);
+                  foundNext = true;
+                  break;
+                }
+              }
+    
+              if (!foundNext) {
+                if (trial.submit_latency_from_last !== undefined && trial.submit_latency_from_last !== null) {
+                  rt_after_skip.push(trial.submit_latency_from_last);
+                }
+              }
+            }
+          });
+        });
+    
+        // CALCULATIONS 2: retries ================================================================
+        trials.forEach(trial => {
+          if (!trial.response) return;
+    
+          Object.entries(trial.response).forEach(([q, response]) => {
+            if (!q.endsWith('_retry')) return;
+    
+            const base_q = q.replace('_retry', '');
+            if (!skipped_questions.has(base_q)) return;
+    
+            if (correctAnswers[base_q] === response) retry_correct++;
+            else retry_incorrect++;
+          });
+        });
+    
+        // PARTICIPANT-LEVEL VARIABLES ================================================================
+        const accuracy_overall = total_answered > 0 ? total_correct / total_answered : null;
+    
+        const rt_overall_mean = all_rts.length > 0
+          ? all_rts.reduce((a, b) => a + b, 0) / all_rts.length
+          : null;
+    
+        const rt_after_skip_mean = rt_after_skip.length > 0
+          ? rt_after_skip.reduce((a, b) => a + b, 0) / rt_after_skip.length
+          : null;
+    
+        const retry_rts_mean = retry_rts.length > 0
+          ? retry_rts.reduce((a, b) => a + b, 0) / retry_rts.length
+          : null;
 
+        //================================================================================================
 
-  // const save_summary_trial = {
-  //   type: jsPsychHtmlButtonResponse,
-  //   stimulus: "<p>Saving...</p>",
-  //   choices: [],
-  //   trial_duration: 1,
-  //   data: { trial_section: "summary", is_summary: true },
-  //   on_start: function(trial){
-  //     // compute summary right before this trial finishes
-  //     const trials = jsPsych.data.get().filter({ trial_section: 'task' }).values();
-  
-  //     let total_correct = 0;
-  //     let total_answered = 0;
-  //     let all_rts = [];
-  //     let retry_rts = [];
-  //     let rt_after_skip = [];
-  
-  //     let skipped_questions = new Set();
-  //     let retry_correct = 0;
-  //     let retry_incorrect = 0;
-  
-  //     trials.forEach(t => {
-  //       if (!t.rt_per_question) return;
-  //       const qnames = Object.keys(t.rt_per_question);
-  
-  //       qnames.forEach((q, idx) => {
-  //         const rt_custom = t.rt_per_question[q];
-  //         const acc = t.accuracy_per_question?.[q];
-  //         const wasSkipped = t.skipped?.[q];
-  
-  //         if (acc === true) total_correct++;
-  //         if (acc !== null && acc !== undefined) total_answered++;
-  
-  //         if (rt_custom !== null && rt_custom !== undefined && !q.endsWith("_retry")) {
-  //           all_rts.push(rt_custom);
-  //         }
-  //         if (rt_custom !== null && rt_custom !== undefined && q.endsWith("_retry")) {
-  //           retry_rts.push(rt_custom);
-  //         }
-  
-  //         if (wasSkipped) {
-  //           skipped_questions.add(q);
-  //           let foundNext = false;
-  //           for (let j = idx + 1; j < qnames.length; j++) {
-  //             const nextQ = qnames[j];
-  //             const nextRT = t.rt_per_question[nextQ];
-  //             if (nextRT !== null && nextRT !== undefined) {
-  //               rt_after_skip.push(nextRT);
-  //               foundNext = true;
-  //               break;
-  //             }
-  //           }
-  //           if (!foundNext && t.submit_latency_from_last != null) {
-  //             rt_after_skip.push(t.submit_latency_from_last);
-  //           }
-  //         }
-  //       });
-  //     });
-  
-  //     // retries
-  //     trials.forEach(t => {
-  //       if (!t.response) return;
-  //       Object.entries(t.response).forEach(([q, response]) => {
-  //         if (!q.endsWith('_retry')) return;
-  //         const base_q = q.replace('_retry', '');
-  //         if (!skipped_questions.has(base_q)) return;
-  
-  //         if (correctAnswers[base_q] === response) retry_correct++;
-  //         else retry_incorrect++;
-  //       });
-  //     });
-  
-  //     const accuracy_overall = total_answered > 0 ? total_correct / total_answered : null;
-  //     const rt_overall_mean = all_rts.length ? all_rts.reduce((a,b)=>a+b,0)/all_rts.length : null;
-  //     const rt_after_skip_mean = rt_after_skip.length ? rt_after_skip.reduce((a,b)=>a+b,0)/rt_after_skip.length : null;
-  //     const retry_rts_mean = retry_rts.length ? retry_rts.reduce((a,b)=>a+b,0)/retry_rts.length : null;
-  
-  //     // attach the summary values to THIS trial row
-  //     trial.data = {
-  //       ...trial.data,
-  //       pid: PID,
-  //       counterbalance_condition,
-  //       page_order,
-  //       accuracy_overall,
-  //       rt_overall_mean,
-  //       rt_after_skip_mean,
-  //       retry_rts_mean,
-  //       skipped_correct_retry: retry_correct,
-  //       skipped_incorrect_retry: retry_incorrect
-  //       
-  //     };
-  //   }
-  // };
-  
+        // DEMOGRAPHICSß ================================================================
+        const demo_trial = jsPsych.data.get()
+          .filter({ trial_section: "demographics" })
+          .last(1)
+          .values()[0];
 
+        const demo = demo_trial?.response ?? {}; 
+    
+        jsPsych.data.write({
+          trial_section: "summary",
+          subject_id: subject_id,
+          accuracy_overall: accuracy_overall,
+          rt_overall_mean: rt_overall_mean,
+          retry_rts_mean: retry_rts_mean,
+          rt_after_skip_mean: rt_after_skip_mean,
+          skipped_correct_retry: retry_correct,
+          skipped_incorrect_retry: retry_incorrect,
+          ...demo,
+          timestamp: Date.now()
+        });
+      }
+    };
+    
   const end_test = {
     type: jsPsychHtmlButtonResponse,
     data: {
