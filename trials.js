@@ -1,4 +1,3 @@
-
 // CORRECT ANSWERS ================================================================
 const correctAnswers = {
     q1: "75", q2: "52", q3: "41", q4: "93", q5: "32", q6: "12+88", q7: "300", q8: "6", q9: "2", q10: "99.2", q11: "101", q12: "200", q13: "6", q14: "19", q15: "13", q16: "37", q17: "-1", q18: "30", q19: "27",
@@ -6,7 +5,7 @@ const correctAnswers = {
     q40: "550", q41: "Jupiter", q42: "William Shakespeare", q43: "Tokyo", q44: "Oxygen", q45: "Brazil", q46: "H2O", q47: "Africa", q48: "Albert Einstein", q49: "2", 
     q50: "Pacific", q51: "Paris", q52: "Leonardo da Vinci", q53: "Oxygen", q54: "7", q55: "Japan", q56: "100", q57: "Cheetah", q58: "Blue Whale", q59: "Rome", q60: "Hydrogen",
     q61: "Mars", q62: "Neil Armstrong", q63: "Yen", q64: "Mandarin", q65: "Peacock", q66: "Vatican City", q67: "Heart", q68: "Everest", q69: "Sahara", q70: "Sumo wrestling",
-    q71: "Nile", q72: "Italy", q73: "Au", q74: "Falcon", q75: "11", q76: "Atlantic", q77: "Mariana", q78: "Thomas Edison", q79: "Greenland",
+    q71: "Nile", q72: "Italy", q73: "Au", q74: "Falcon", q75: "11", q76: "Atlantic", q77: "Mariana", q78: "Thomas Edison", q79: "Greenland", q80: "Ottawa",
     q81: "Classical conditioning",
     q82: "Watson and Rayner",
     q83: "Negative reinforcement",
@@ -46,64 +45,20 @@ const correctAnswers = {
     q117: "Learned helplessness",
     q118: "Smashed",
     q119: "Positive reinforcement",
-    q120: "Geese"
+    q120: "Geese",
+    q121: "Here",
+    q122: "Me"
       };
   
 
 //*************************************** DEFINE PAGES ******************************************************
-     
-  const instructions = {
-    type:jsPsychHtmlButtonResponse,
-    stimulus: `
-    <div>
-      <h2 style = "text-align:center; margin-bottom: 30px;">
-        Instructions
-      </h2>
-      <h3>
-        READ THROUGH THESE INSTRUCTIONS CAREFULLY
-      <h3>
-    </div>
-    <br>
-    <div style="text-align: left;
-      max-width: 900px;
-      margin: 0 auto;
-      line-height: 1.6;">
-      <p> 
-        You will see four pages of multiple choice questions. 
-      </p>
-      <ul>
-        <li style="margin-bottom: 15px;">
-          Answer each question <strong>IN ORDER</strong>, from top to bottom.
-        </li>
-        <li style="margin-bottom: 15px;">
-          You will only have one attempt per each question.
-        </li>
-        <li style="margin-bottom: 15px;">
-          Once you select an answer, it cannot be changed.
-        </li>
-        <li style="margin-bottom: 15px;">
-          At the end of each page, there will be a <strong>'Submit'</strong> button to move onto the next page. The new page will start immediately.
-        </li>
-        </ul>
-      <p>
-        After you complete all four pages of questions, you will be allowed to take a break.
-      <p>
-      <p>
-        After your break, you will complete a questionnaire in which you will be asked to rate how strongly you agree or disagree with a series of statements, and you may also choose to provide demographic information.
-      </p>
-        Click <strong>'I Understand'</strong> to begin. The questionnaire will start immediately. 
-    </div>
-    `,
-    choices: ['I understand'],
-    data: {
-      trial_section: 'instructions'
-    }
-  }
   
   const page1_qs = {
     type: jsPsychSurveyMultiChoice,
     preamble: `
+      <div style="padding-top: 40px;">
       <p>Please answer all the questions <strong>in order</strong></p>
+    </div>
     `,
       data: {
         trial_section: 'task'
@@ -155,7 +110,9 @@ const correctAnswers = {
   const page2_qs = {
       type: jsPsychSurveyMultiChoice,
       preamble: `
+      <div style="padding-top: 40px;">
       <p>Please answer all the questions <strong>in order</strong></p>
+    </div>
     `,
       data: {
         trial_section: 'task'
@@ -207,7 +164,9 @@ const correctAnswers = {
   const page3_qs = {
     type: jsPsychSurveyMultiChoice,
     preamble: `
+      <div style="padding-top: 40px;">
       <p>Please answer all the questions <strong>in order</strong></p>
+    </div>
     `,
     data: {
         trial_section: 'task'
@@ -338,7 +297,9 @@ const correctAnswers = {
   const page4_qs = {
     type: jsPsychSurveyMultiChoice,
     preamble: `
+      <div style="padding-top: 40px;">
       <p>Please answer all the questions <strong>in order</strong></p>
+    </div>
     `,
     data: {
         trial_section: 'task'
@@ -359,23 +320,33 @@ const correctAnswers = {
   }
   
   const debrief = {
-    type: jsPsychHtmlButtonResponse,
+    type: jsPsychSurvey,
+    survey_json: {
+        title: "Debrief",
+        pages: [
+            {
+                elements: [
+                  // DEBRIEF ======================================================================================
+                    {
+                        title: "Explanation and Study Debrief?",
+                        name: "debrief",
+                        type: "html",
+                        html: `
+                        <p>Thank you for taking part in this study. Some individuals with (diagnosed or trait) ADHD often make small mistakes on forms, such as forgetting to fill in questions etc. The aim was to try and induce this specific symptom of ADHD, referred to as: 'often makes careless mistakes' by using of a lengthy multiple choice quiz. Please note that if you did miss questions in this experiment, it is not necessarily indicative of ADHD and sufficient for a diagnosis.</p>
+                        <br>
+                        <p>Please click the button below to save your data, this should only take a few seconds.</p>
+                        `,
+                    }
+                ]
+            }
+        ]
+    }, 
     data: {
-      trial_section: 'debrief'
-    },
-    choices: ['End Experiment'],
-    stimulus: "<p>Thank you for taking part in this study. Some individuals with (diagnosed or trait) ADHD often make small mistakes on forms, such as forgetting to fill in questions etc. The aim was to try and induce this specific symptom of ADHD, referred to as: 'often makes careless mistakes' by using of a lengthy multiple choice quiz. Please note that if you did miss questions in this experiment, it is not necessarily indicative of ADHD and sufficient for a diagnosis.</p>"
-  };
-  
-  const end_test = {
-    type: jsPsychHtmlButtonResponse,
-    data: {
-      trial_section: 'end'
-    },
-    choices: ['End Experiment'],
-    stimulus: "<p>Please click to end the experiment.</p>"
-  };
-  
+          trial_section: "debrief"}
+    };
+
+
+
   // const save_summary_trial = {
   //   type: jsPsychHtmlButtonResponse,
   //   stimulus: "<p>Saving...</p>",
@@ -469,3 +440,12 @@ const correctAnswers = {
   //   }
   // };
   
+
+  const end_test = {
+    type: jsPsychHtmlButtonResponse,
+    data: {
+      trial_section: 'end'
+    },
+    choices: ['End Experiment'],
+    stimulus: "<p>Data saved succesfully. Please click here to end the Experiment. You will be redirected to the SONA platform to recieve your credits. </p>"
+  };
