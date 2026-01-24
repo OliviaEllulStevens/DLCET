@@ -16,7 +16,7 @@ const infoConsent = {
                 margin: 0 auto;
                 line-height: 1.6;">
   
-                <img src="LOGO.png" width="150" height="150" style = "float: right; position: relative; top: -40px;" >
+                <img src="media/LOGO.png" width="150" height="150" style = "float: right; position: relative; top: -40px;" >
   
                 <h3>Daily life cognition and educational tasks</h3>
   
@@ -102,7 +102,7 @@ const infoConsent = {
                 <p style="max-width:1000px; margin:0 auto; line-height:1.6; text-align:left;">
                   Please read through the consent form carefully. If you are happy to proceed,
                   please tick <strong>every</strong> box and click <strong>Complete</strong>.
-                  If you do not consent, please exit the window (via Esc) and simply close your browser.
+                  If you do <strong>not</strong> consent, please exit the window (via Esc) and simply close your browser.
                 </p>
                 <br>
               `
@@ -137,7 +137,7 @@ const infoConsent = {
                 },
                 {
                   value: "c6",
-                  text: "I understand that my collected data will be stored in a de-identified way (e.g. using ID numbers not names), and kept separate from other details about me. Electronic data will be stored securely on a University managed system, and hard-copies will be stored behind a locked door. Anonymised data may be shared with the scientific community on the website www.osf.io."
+                  text: "I understand that my collected data will be stored in a de-identified way (e.g., using ID numbers not names), and kept separate from other details about me. Electronic data will be stored securely on a University-managed system, and hard copies will be stored behind a locked door. Anonymised data may be shared with the scientific community on www.osf.io."
                 },
                 {
                   value: "c7",
@@ -213,7 +213,7 @@ const instructions = {
                 <p>
                   After your break, you will complete a questionnaire in which you will be asked to rate how strongly you agree or disagree with a series of statements, and you may also choose to provide demographic information.
                 </p>
-                  Click <strong>'I Understand'</strong> to begin. The questionnaire will start immediately. 
+                  Click <strong>'I understand'</strong> to begin. The questionnaire will start immediately. 
               </div>
               `,
           }

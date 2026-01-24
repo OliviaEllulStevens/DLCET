@@ -71,9 +71,11 @@ const jsPsych = initJsPsych({
 
 });
 
+
 // SUBJECT ID ================================================================
 const subject_id = jsPsych.randomization.randomID(6);
 const filename = `${subject_id}.csv`;
+
 
 // ADD CUSTOM LOGIC ================================================================
 
@@ -83,6 +85,7 @@ function addSurveyLogic(trial) {
     if (typeof trial.questions === "function") {
       trial.questions = trial.questions();
     }
+
     
     // PER PAGE TRACKING VARIABLES ================================================================
     window.last_question_time = performance.now(); 
@@ -90,12 +93,17 @@ function addSurveyLogic(trial) {
     window.acc_data = {}; 
     window.answered = {}; 
     window.page_start_time = performance.now();
+
+    window.q_counter = 0;
+    window.q_first_answer = {},
     
     trial.questions.forEach(q => { // Overwritten for each new page.
       window.answered[q.name] = false;
       window.rt_data[q.name] = null;
       window.acc_data[q.name] = null;
+      window.q_first_answer[q.name] = null;
     });
+  
 
     // // Custom tracking logic via Event Listeners ------------------------------------------------
 
@@ -130,7 +138,7 @@ function addSurveyLogic(trial) {
     );
     }, 100); 
   };
-  
+
 
   // ON FINISH ================================================================
 
@@ -192,10 +200,11 @@ function addSurveyLogic(trial) {
   return trial;
 }
 
+
 // PARTICIPANT ID DISPLAY SCREEN ================================================================
 // // Participants must provide this if they wish to withdraw their data. 
 
-const display_id_1 = {
+const display_id = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
       <p><strong>Your Participant ID is:</strong></p>
@@ -205,17 +214,6 @@ const display_id_1 = {
     `,
     choices: ["Continue"]
   };
-
-const display_id_2 = {
-  type: jsPsychHtmlButtonResponse,
-  stimulus: `
-    <p>As a reminder,<strong>your Participant ID is:</strong></p>
-    <p style="font-size: 24px;">${subject_id}</p>
-    <p>Please write this ID down for your records.</p>
-    <p style = "max-width: 1000px; margin: 0 auto;"">If you wish to withdraw your data from this study, you must provide this unique participant identification code. As the study is conducted anonymously, we will be unable to identify or remove your data without this code.</p>
-  `,
-  choices: ["Continue"]
-};
 
 
 // ADD CUSTOM LOGIC/COUNTERBALANCING AND PUSH ================================================================
@@ -227,6 +225,7 @@ const page4_trial = addSurveyLogic(page4_qs);
 
 orderRandomisation = jsPsych.randomization.shuffle([page1_trial, page2_trial, page3_trial]);
 
+
 // INITIALISE TIMELINE ================================================================
 
 var timeline = []
@@ -235,7 +234,7 @@ var timeline = []
 // INFOSHEET, CONSENT, INSTRUCTIONS ------------------------------------------------
 
 timeline.push(infoConsent)
-timeline.push(display_id_1)
+timeline.push(display_id)
 timeline.push({ type: jsPsychFullscreen, fullscreen_mode: true })
 timeline.push(instructions)
 
@@ -246,25 +245,27 @@ timeline.push(...orderRandomisation)
 timeline.push(page4_trial)
 //timeline.push(break) ***************************************************************************************************************** Todo
 
+
 // // Demographics ------------------------------------------------
 //timeline.push(asrs) ***************************************************************************************************************** Todo
 timeline.push(demographics)
 
+
 // // End Experiment ------------------------------------------------
 timeline.push(debrief)
-timeline.push(display_id_2)
+timeline.push(display_id)
 
 
 // // Save data via DataPipe -------
-const save_csv1 = {
+const save_csv = {
     type: jsPsychPipe,
     action: "save",
     experiment_id: "PDziWg9wxGbF",
     filename: `${subject_id}_full.csv`,
-    data_string: ()=>jsPsych.data.get().csv()
+    data_string: ()=>jsPsych.data.get().sort({ trial_index: 'asc' }).csv()
   };
 
-const save_csv2 = {
+const save_summary_csv = {
     type: jsPsychPipe,
     action: "save",
     experiment_id: "PDziWg9wxGbF",
@@ -280,7 +281,7 @@ const save_csv2 = {
     data_string: ()=>jsPsych.data.get().json()
   };
 
-const save_data = [save_csv1, save_csv2, save_json];
+const save_data = [save_csv, save_summary_csv, save_json];
 
 timeline.push(save_summary_trial)
 timeline.push(...save_data)
