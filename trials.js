@@ -1,62 +1,130 @@
 // CORRECT ANSWERS ================================================================
 const correctAnswers = {
-    q1: "75", 
-    q2: "52", 
-    q3: "41", 
-    q4: "93", 
-    q5: "32", 
-    q6: "12+88", 
-    q7: "300", 
-    q8: "6", 
-    q9: "2", 
-    q10: "99.2", q11: "101", q12: "200", q13: "6", q14: "19", q15: "13", q16: "37", q17: "-1", q18: "30", q19: "27",
-    q20: "98", q21: "360", q22: "65", q23: "0", q24: "0", q25: "4", q26: "4", q27: "1", q28: "88", q29: "142", q30: "4", q31: "148", q32: "20", q33: "23", q34: "8", q35: "9", q36: "121", q37: "36", q38: "16", q39: "63", 
-    q40: "550", q41: "Jupiter", q42: "William Shakespeare", q43: "Tokyo", q44: "Oxygen", q45: "Brazil", q46: "H2O", q47: "Africa", q48: "Albert Einstein", q49: "2", 
-    q50: "Pacific", q51: "Paris", q52: "Leonardo da Vinci", q53: "Oxygen", q54: "7", q55: "Japan", q56: "100", q57: "Cheetah", q58: "Blue Whale", q59: "Rome", q60: "Hydrogen",
-    q61: "Mars", q62: "Neil Armstrong", q63: "Yen", q64: "Mandarin", q65: "Peacock", q66: "Vatican City", q67: "Heart", q68: "Everest", q69: "Sahara", q70: "Sumo wrestling",
-    q71: "Nile", q72: "Italy", q73: "Au", q74: "Falcon", q75: "11", q76: "Atlantic", q77: "Mariana", q78: "Thomas Edison", q79: "Greenland", q80: "Ottawa",
-    q81: "Classical conditioning",
-    q82: "Watson and Rayner",
-    q83: "Negative reinforcement",
-    q84: "The neutral stimulus",
-    q85: "Extinction",
-    q86: "Reading colour-related words with matching or differing text colour",
-    q87: "Beck\’s cognitive triad",
-    q88: "Studying the effects brain damage and disorders have on cognitive function",
-    q89: "All of the above",
-    q90: "Failure of object recognition",
-    q91: "The way an individual behaves, the \‘how\’ of behaviour",
-    q92: "Piaget\’s theory of cognitive development",
-    q93: "Theory of mind",
-    q94: "Separation comfort",
-    q95: "Anxiety disorder",
-    q96: "65%",
-    q97: "Cognitive",
-    q98: "Anxious preoccupied",
-    q99: "Cognitive dissonance",
-    q100: "Actions done by the same sex",
-    q101: "Ego",
-    q102: "The unconscious",
-    q103: "Displacement",
-    q104: "Anal retentive",
-    q105: "He introduced the idea of the collective unconscious",
-    q106: "Prefrontal cortex",
-    q107: "Cerebellum",
-    q108: "When sensory organs convert stimuli into neuronal activity",
-    q109: "Frontal cortex",
-    q110: "Damage to the tympanic membrane",
-    q111: "Being genetically predisposed",
-    q112: "Alogia",
-    q113: "Behaviour",
-    q114: "Self-actualisation",
-    q115: "Treating the symptoms a person has without comparing them to diagnostic criteria",
-    q116: "A cognitive method of organising information",
-    q117: "Learned helplessness",
-    q118: "Smashed",
-    q119: "Positive reinforcement",
-    q120: "Geese",
-    q121: "Here",
-    q122: "Me"
+  q1: "December",
+  q2: "Silver",
+  q3: "Prague",
+  q4: "Venus",
+  q5: "Greenland",
+  q6: "Skin",
+  q7: "Venus",
+  q8: "1989",
+  q9: "88",
+  q10: "Purple",
+  q11: "50",
+  q12: "Entomophobia",
+  q13: "Saturn",
+  q14: "Macbeth",
+  q15: "Blinky",
+  q16: "1969",
+  q17: "Aldous Huxley",
+  q18: "Gimli",
+  q19: "Hitchhiker\'s Guide to the Galaxy",
+  q20: "366",
+  q21: "4",
+  q22: "Fred",
+  q23: "Mortimer Mouse",
+  q24: "The Beatles",
+  q25: "Photosynthesis",
+  q26: "Neil Diamond",
+  q27: "Hydrogen",
+  q28: "AC/DC",
+  q29: "Nevermind",
+  q30: "Leonardo da Vinci",
+  q31: "Van Gogh",
+  q32: "Apollo",
+  q33: "Mandarin",
+  q34: "Pasteurisation",
+  q35: "Vaccination",
+  q36: "Unicorn",
+  q37: "Cerberus",
+  q38: "Tetris",
+  q39: "Three",
+  q40: "Helsinki",
+  q41: "75",
+  q42: "52",
+  q43: "41",
+  q44: "124",
+  q45: "32",
+  q46: "0.14 + 0.88",
+  q47: "300",
+  q48: "4.5",
+  q49: "-2",
+  q50: "99.2",
+  q51: "101",
+  q52: "3",
+  q53: "19",
+  q54: "6.5",
+  q55: "37",
+  q56: "-1",
+  q57: "30",
+  q58: "13",
+  q59: "98",
+  q60: "360",
+  q61: "65",
+  q62: "0",
+  q63: "Undefined",
+  q64: "4",
+  q65: "4",
+  q66: "1",
+  q67: "88",
+  q68: "142",
+  q69: "10000",
+  q70: "148",
+  q71: "16",
+  q72: "30",
+  q73: "8",
+  q74: "9",
+  q75: "121",
+  q76: "36",
+  q77: "49",
+  q78: "63",
+  q79: "520",
+  q80: "500",
+  q81: "Classical conditioning",
+  q82: "Watson and Rayner",
+  q83: "Negative reinforcement",
+  q84: "The neutral stimulus",
+  q85: "Extinction",
+  q86: "Reading colour-related words with matching or differing text colour",
+  q87: "Beck\’s cognitive triad",
+  q88: "Studying the effects brain damage and disorders have on cognitive function",
+  q89: "All of the above",
+  q90: "Failure of object recognition",
+  q91: "The way an individual behaves, the \'how\' of behaviour",
+  q92: "Piaget\’s theory of cognitive development",
+  q93: "Theory of mind",
+  q94: "Co-sleeping",
+  q95: "Anxiety disorder",
+  q96: "65%",
+  q97: "Cognitive",
+  q98: "Anxious preoccupied",
+  q99: "Cognitive dissonance",
+  q100: "Actions done by the same sex",
+  q101: "Ego",
+  q102: "The unconscious",
+  q103: "Displacement",
+  q104: "Anal expulsive",
+  q105: "He introduced the idea of the collective unconscious",
+  q106: "Prefrontal cortex",
+  q107: "Cerebellum",
+  q108: "When sensory organs convert stimuli into neuronal activity",
+  q109: "Frontal cortex",
+  q110: "Damage to the tympanic membrane",
+  q111: "Being genetically predisposed",
+  q112: "Alogia",
+  q113: "Behaviour",
+  q114: "Self-actualisation",
+  q115: "Treating the symptoms a person has without comparing them to diagnostic criteria",
+  q116: "A cognitive method of organising information",
+  q117: "Learned helplessness",
+  q118: "Smashed",
+  q119: "Positive reinforcement",
+  q120: "Geese",
+  q121: "1.9",
+  q122: "2.1",
+  q123: "Frontal lobe",
+  q124: "Soma",
+  q125: "Homer"
       };
   
 
@@ -72,105 +140,130 @@ const correctAnswers = {
       data: {
         trial_section: 'task'
       },
-    questions: [ 
-      {prompt: "What is 51 + 24?", name: 'q1', options: ["72", "75", "77", "74"]},
-      {prompt: "What is 9 + 43?", name: 'q2', options: ["54", "51", "52", "49"]},
-      {prompt: "What is 4 + 37?", name: 'q3', options: ["31", "41", "44", "45"]},
-      {prompt: "What is 31 x 3?", name: 'q4', options: ["93", "63", "91", "90"]},
-      {prompt: "Which number is not a multiple of 6?", name: 'q5', options: ["24", "66", "32", "6"]},
-      {prompt: "Choose the sum that does not equal one", name: 'q6', options: ["0.51+0.49", "12+88", "0.76+0.24", "0.80+0.20"]},
-      {prompt: "What is 130 + 170?", name: 'q7', options: ["300", "400", "280", "330"]},
-      {prompt: "What is 36/6?", name: 'q8', options: ["5", "6", "7", "8"]},
-      {prompt: "What is 56 - 58?",name: 'q9', options: ["4", "1", "2", "-2"]},
-      {prompt: "What is 98.7 + 0.5?",name: 'q10', options: ["99.2", "99.4", "100.2", "100.4"]},
-      {prompt: "What is 23 + 78?",name: 'q11', options: ["100", "101", "103", "104"]},
-      {prompt: "What is 50 x 4?", name: 'q12',options: ["220", "200", "150", "250"]},
-      {prompt: "How many faces are on a cube?",name: 'q13', options: ["5", "4", "7", "6"]},
-      {prompt: "Which of these numbers is prime?",name: 'q14', options: ["15", "16", "19", "21"]},
-      {prompt: "Halve 26",name: 'q15', options: ["12", "14", "13", "11"]},
-      {prompt: "What is 90 - 53?", name: 'q16',options: ["37", "47", "33", "29"]},
-      {prompt: "What is 10 - 11?", name: 'q17',options: ["1", "2", "-2", "-1"]},
-      {prompt: "What is 43 - 13?", name: 'q18',options: ["30", "29", "28", "31"]},
-      {prompt: "What is 94 - 67?", name: 'q19',options: ["39", "32", "27", "31"]},
-      {prompt: "What is 56 + 42?", name: 'q20',options: ["88", "98", "94", "86"]},
-      {prompt: "How many degrees are in a square?", name: 'q21', options: ["720", "360", "180", "420"]},
-      {prompt: "What is 5 x 13?", name: 'q22',options: ["60", "75", "70", "65"]},
-      {prompt: "What is 0 x 0?", name: 'q23',options: ["0.1", "0", "1", "2"]},
-      {prompt: "What is 5 x 0?", name: 'q24',options: ["1", "5", "0", "4"]},
-      {prompt: "What is 93 - 89?", name: 'q25',options: ["5", "4", "6", "7"]},
-      {prompt: "What is 12/3?", name: 'q26',options: ["4", "3", "6", "2"]},
-      {prompt: "What is 5/5?", name: 'q27',options: ["5", "2", "1", "0"]},
-      {prompt: "What is 4 x 22?", name: 'q28',options: ["44", "88", "99", "80"]},
-      {prompt: "What is 60 + 82?", name: 'q29',options: ["122", "136", "142", "132"]},
-      {prompt: "What is 20/5?", name: 'q30',options: ["2", "4", "6", "5"]},
-      {prompt: "What is 58 + 90?", name: 'q31',options: ["139", "150", "138", "148"]},
-      {prompt: "What is 83 - 63?", name: 'q32',options: ["15", "20", "22", "23"]},
-      {prompt: "What is 23.25 to the nearest whole number?", name: 'q33',options: ["23", "24", "22", "20"]},
-      {prompt: "What is the square root of 64?",name: 'q34', options: ["6", "12", "8", "16"]},
-      {prompt: "What is 54/6?", name: 'q35',options: ["9", "6", "12", "4"]},
-      {prompt: "What is 11 x 11?", name: 'q36',options: ["139", "111", "121", "100"]},
-      {prompt: "What is 73 - 37?", name: 'q37',options: ["41", "51", "42", "36"]},
-      {prompt: "What is 4 squared?", name: 'q38',options: ["24", "16", "8", "4"]},
-      {prompt: "What is 9 x 7?", name: 'q39',options: ["63", "61", "70", "54"]},
-      {prompt: "What is 50 x 11?", name: 'q40',options: ["520", "500", "550", "450"]}
+      questions: [ 
+        {prompt: "Which of these months has the most days?", name: "q1", 
+          options: ["December", "April", "September", "June"]},
+    
+        {prompt: "Which element is \‘Ag\’ on the periodic table?", name: "q2", 
+        options: ["Aluminium", "Argon", "Silver", "Gold"]},
+    
+        {prompt: "What is the capital city of the Czech Republic?", name: "q3", 
+        options: ["Budapest", "Prague", "Minsk", "Bucharest"]},
+    
+        {prompt: "Which of these planets is smallest?", name: "q4", 
+        options: ["Earth", "Saturn", "Venus", "Jupiter"]},
+    
+        {prompt: "What is the largest island?", name: "q5", 
+        options: ["Madagascar", "New Guinea", "Greenland", "Borneo"]},
+    
+        {prompt: "What is the largest organ in the body?", name: "q6", 
+        options: ["Lungs", "Skin", "Hair", "Heart"]},
+    
+        {prompt: "Which planet rotates clockwise on its axis?", name: "q7", 
+        options: ["Mercury", "Earth", "Venus", "Mars"]},
+    
+        {prompt: "In what year did the Berlin Wall fall?", name: "q8", 
+        options: ["1985", "1989", "1990", "1993"]},
+    
+        {prompt: "How many keys are there on a piano?", name: "q9", 
+        options: ["80", "88", "62", "100"]},
+    
+        {prompt: "What is the rarest colour to appear on country flags?", name: "q10", 
+        options: ["Purple", "Pink", "Brown", "Orange"]},
+    
+        {prompt: "How many states are there in the United States of America?", name: "q11", 
+        options: ["50", "51", "52", "53"]}, 
+    
+        {prompt: "What is the word for a fear of insects?", name: "q12", 
+        options: ["Arachnophobia", "Ailurophobia", "Acrophobia", "Entomophobia"]},
+    
+        {prompt: "Which planet has the most moons?", name: "q13", 
+        options: ["Jupiter", "Saturn", "Venus", "Earth"]},
+    
+        {prompt: "Which Shakespeare play contains three witches as characters?", name: "q14", 
+        options: ["Romeo and Juliet", "Macbeth", "Hamlet", "Othello"]},
+    
+        {prompt: "Which of these is NOT a ghost from the game pac-man?", name: "q15", 
+        options: ["Inky", "Pinky", "Clyde", "Blinky"]},
+    
+        {prompt: "What year was the Moon Landing?", name: "q16", 
+        options: ["1960", "1964", "1969", "1972"]},
+    
+        {prompt: "Who wrote ‘Brave New World’?", name: "q17", 
+        options: ["George Orwell", "Isaac Aasimov", "Aldous Huxley", "Arthur C Clarke"]},
+    
+        {prompt: "Which of these names belongs to a dwarf in Lord of the Rings?", name: "q18", 
+        options: ["Thorin", "Merry", "Gimli", "Bombur"]},
+    
+        {prompt: "In which book is \‘42\’ the answer to life, the universe, and everything?", name: "q19", 
+        options: ["Hitchhiker\'s Guide to the Galaxy", "I, Robot", "The Final Answer", "Cryptozoic!"]},
+    
+        {prompt: "How many days are in a leap year?", name: "q20", 
+        options: ["360", "365", "366", "367"]},
+    
+        {prompt: "How many chambers does the human heart have?", name: "q21", 
+        options: ["2", "3", "4", "5"]},
+    
+        {prompt: "What is the name of Ebeneezer Scrooge\’s nephew in \‘A Christmas Carol\’?", name: "q22", 
+        options: ["George", "John", "Fred", "Jacob"]},
+    
+        {prompt: "What was Mickey Mouse originally called?", name: "q23", 
+        options: ["Thomas Mouse", "Michael Mouse", "Mortimer Mouse", "Maximillion Mouse"]},
+    
+        {prompt: "Which band recorded the song \“Let it be\”?", name: "q24", 
+        options: ["U2", "The Beatles", "Queen", "The Who"]},
+    
+        {prompt: "What is the process in which plants convert light to food?", name: "q25", 
+        options: ["Chemosynthesis", "Fermentation", "Photosynthesis", "Radiosynthesis"]},
+    
+        {prompt: "Which artist sang Sweet Caroline?", name: "q26", 
+        options: ["Elton John", "Neil Diamond", "David Bowie", "Michael Jackson"]},
+    
+        {prompt: "What is H in the Periodic Table?", name: "q27", 
+        options: ["Helium", "Hydrogen", "Holmium", "Hafnium"]},
+    
+        {prompt: "Which rock band wrote the song \‘Let there be rock\’?", name: "q28", 
+        options: ["Radiohead", "The Rolling Stones", "AC/DC", "Judas Priest"]},
+    
+        {prompt: "Which Nirvana album contains the song \‘In Bloom\’?", name: "q29", 
+        options: ["In Utero", "Bleach", "Incesticide", "Nevermind"]},
+    
+        {prompt: "Who painted the Mona Lisa?", name: "q30", 
+        options: ["Van Gogh", "Michaelangelo", "Leonardo da Vinci", "Picasso"]},
+    
+        {prompt: "Who painted Starry Night?", name: "q31", 
+        options: ["Frida Kahlo", "Van Gogh", "Picasso", "Banksy"]},
+    
+        {prompt: "Which Greek God is the God of light?", name: "q32", 
+        options: ["Apollo", "Artemis", "Poseidon", "Zeus"]},
+    
+        {prompt: "Which language has the most speakers worldwide, as a first language?", name: "q33", 
+        options: ["Mandarin", "Arabic", "Spanish", "English"]},
+    
+        {prompt: "What is the name of the process where bacteria is removed from milk?", name: "q34", 
+        options: ["Sterilisation", "Immunation", "Pasteurisation", "Manipulation"]},
+    
+        {prompt: "Which medical procedure involves injecting a weak version of a pathogen?", name: "q35", 
+        options: ["Vaccination", "Trepidation", "Biopsy", "Phlebotomy"]},
+        
+        {prompt: "What is Scotland\’s national animal?", name: "q36", 
+        options: ["Unicorn", "Lochness Monster", "Lion", "Highland Cow"]},
+    
+        {prompt: "Which mythological monster guards the gates of the Underworld?", name: "q37", 
+        options: ["Hydra", "Medusa", "Cerberus", "Wyvern"]},
+    
+        {prompt: "Which game came pre-packaged with the original Gameboy?", name: "q38", 
+        options: ["Tetris", "Super Mario Land", "Wario Land", "The Legend of Zelda: Link\'s Awakening"]},
+    
+        {prompt: "How many hearts does an Octopus have?", name: "q39", 
+        options: ["One", "Four", "Eight", "Three"]},
+    
+        {prompt: "What is the capital of Finland?", name: "q40", 
+        options: ["Oslo", "Cern", "Helsinki", "Copenhagen"]}
       ]
       };
-  
+
   const page2_qs = {
-      type: jsPsychSurveyMultiChoice,
-      preamble: `
-      <div style="padding-top: 40px;">
-      <p>Please answer all the questions <strong>in order</strong></p>
-    </div>
-    `,
-      data: {
-        trial_section: 'task'
-      },
-      questions: [
-      {prompt: "What is the largest planet in our Solar System?", name: "q41", options: ["Earth", "Jupiter", "Saturn", "Neptune"]},
-      {prompt: "Who wrote 'Romeo and Juliet'?", name: "q42", options: ["Charles Dickens", "William Shakespeare", "Jane Austen", "Mark Twain"]},
-      {prompt: "What is the capital city of Japan?", name: "q43", options: ["Kyoto", "Osaka", "Tokyo", "Sapporo"]},
-      {prompt: "Which element has the symbol 'O'?", name: "q44", options: ["Oxygen", "Gold", "Silver", "Osmium"]},
-      {prompt: "Which country hosted the 2016 Summer Olympics?", name: "q45", options: ["Brazil", "China", "UK", "Russia"]},
-      {prompt: "What is the chemical formula of water?", name: "q46", options: ["CO2", "H2O", "O2", "NaCl"]},
-      {prompt: "Which continent is the Sahara Desert on?", name: "q47", options: ["Asia", "Africa", "Australia", "South America"]},
-      {prompt: "Who developed the theory of relativity?", name: "q48", options: ["Isaac Newton", "Albert Einstein", "Niels Bohr", "Galileo"]},
-      {prompt: "What is the smallest prime number?", name: "q49", options: ["0", "1", "2", "3"]},
-      {prompt: "Which ocean is the largest?", name: "q50", options: ["Atlantic", "Indian", "Pacific", "Arctic"]},
-      {prompt: "What is the capital of France?", name: "q51", options: ["Paris", "Berlin", "Rome", "Madrid"]},
-      {prompt: "Who painted the Mona Lisa?", name: "q52", options: ["Van Gogh", "Leonardo da Vinci", "Michelangelo", "Picasso"]},
-      {prompt: "Which gas do humans breathe in?", name: "q53", options: ["Carbon dioxide", "Oxygen", "Nitrogen", "Hydrogen"]},
-      {prompt: "How many continents are there?", name: "q54", options: ["5", "6", "7", "8"]},
-      {prompt: "Which country is known as the Land of the Rising Sun?", name: "q55", options: ["China", "South Korea", "Japan", "Thailand"]},
-      {prompt: "What is the boiling point of water in Celsius?", name: "q56", options: ["90", "100", "110", "120"]},
-      {prompt: "What is the fastest land animal?", name: "q57", options: ["Cheetah", "Horse", "Leopard", "Lion"]},
-      {prompt: "Which is the largest mammal?", name: "q58", options: ["Elephant", "Blue Whale", "Giraffe", "Hippo"]},
-      {prompt: "What is the capital of Italy?", name: "q59", options: ["Rome", "Milan", "Venice", "Naples"]},
-      {prompt: "What is H in the periodic table?", name: "q60", options: ["Helium", "Hydrogen", "Hafnium", "Holmium"]},
-      {prompt: "Which planet is known as the Red Planet?", name: "q61", options: ["Venus", "Mars", "Jupiter", "Mercury"]},
-      {prompt: "Who was the first man on the moon?", name: "q62", options: ["Neil Armstrong", "Buzz Aldrin", "Yuri Gagarin", "John Glenn"]},
-      {prompt: "What is the currency of Japan?", name: "q63", options: ["Yen", "Won", "Dollar", "Peso"]},
-      {prompt: "Which language has the most speakers worldwide?", name: "q64", options: ["English", "Mandarin", "Hindi", "Spanish"]},
-      {prompt: "Which bird is known for its colorful feathers?", name: "q65", options: ["Crow", "Parrot", "Peacock", "Penguin"]},
-      {prompt: "Which is the smallest country in the world?", name: "q66", options: ["Monaco", "Vatican City", "San Marino", "Liechtenstein"]},
-      {prompt: "Which organ pumps blood in the body?", name: "q67", options: ["Liver", "Lungs", "Heart", "Kidney"]},
-      {prompt: "Which is the tallest mountain?", name: "q68", options: ["K2", "Everest", "Kilimanjaro", "Denali"]},
-      {prompt: "Which desert is the largest in the world?", name: "q69", options: ["Sahara", "Gobi", "Kalahari", "Arabian"]},
-      {prompt: "What is the national sport of Japan?", name: "q70", options: ["Karate", "Judo", "Sumo wrestling", "Baseball"]},
-      {prompt: "What is the longest river in the world?", name: "q71", options: ["Amazon", "Nile", "Yangtze", "Mississippi"]},
-      {prompt: "Which country is famous for pizza and pasta?", name: "q72", options: ["France", "Italy", "Spain", "Portugal"]},
-      {prompt: "What is the chemical symbol for gold?", name: "q73", options: ["Ag", "Au", "Pb", "Gd"]},
-      {prompt: "Which is the fastest bird?", name: "q74", options: ["Falcon", "Eagle", "Sparrow", "Ostrich"]},
-      {prompt: "How many players in a football (soccer) team?", name: "q75", options: ["9", "10", "11", "12"]},
-      {prompt: "Which ocean is the Bermuda Triangle in?", name: "q76", options: ["Pacific", "Atlantic", "Indian", "Arctic"]},
-      {prompt: "Which is the deepest ocean trench?", name: "q77", options: ["Java", "Puerto Rico", "Mariana", "Tonga"]},
-      {prompt: "Who invented the light bulb?", name: "q78", options: ["Alexander Graham Bell", "Thomas Edison", "Nikola Tesla", "Einstein"]},
-      {prompt: "Which is the largest island?", name: "q79", options: ["Greenland", "New Guinea", "Borneo", "Madagascar"]},
-      {prompt: "What is the capital of Canada?", name: "q80", options: ["Toronto", "Ottawa", "Vancouver", "Montreal"]},
-    ]
-  };
-  
-  const page3_qs = {
     type: jsPsychSurveyMultiChoice,
     preamble: `
       <div style="padding-top: 40px;">
@@ -181,9 +274,112 @@ const correctAnswers = {
         trial_section: 'task'
       },
       questions: [
-        {prompt: "Which type of conditioning is referred to as learning by association?", name: 'q81',
-        options: ['Classical conditioning', 'Operant conditioning', 'Positive reinforcement', 'The law of effect']}, 
+        {prompt: "What is 37 + 38?", name: "q41", options: ["72", "75", "77", "74"]},
 
+        {prompt: "What is 9 + 43?", name: "q42", options: ["54", "51", "52", "49"]},
+
+        {prompt: "What is 4 + 37?", name: "q43", options: ["31", "41", "44", "45"]},
+
+        {prompt: "What is 31 x 4?", name: "q44", options: ["124", "93", "112", "128"]},
+
+        {prompt: "Which number is not a multiple of 6?", name: "q45",
+            options: ["24", "66", "32", "6"]},
+
+        {prompt: "Choose the sum that does not equal one", name: "q46", 
+          options: ["0.51 + 0.49", "0.14 + 0.88", "0.76 + 0.24", "0.80 + 0.20"]},
+
+        {prompt: "What is 130 + 170?", name: "q47",
+            options: ["300", "400", "280", "330"]},
+
+        {prompt: "What is 36/8?", name: "q48", options: ["4", "4.5", "5.5", "6"]},
+
+        {prompt: "What is 56 - 58?", name: "q49", options: ["4", "1", "2", "-2"]},
+
+        {prompt: "What is 98.7 + 0.5?", name: "q50",
+            options: ["99.2", "99.4", "100.2", "100.4"]},
+
+        {prompt: "What is 23 + 78?", name: "q51", options: ["100", "101", "103", "104"]},
+
+        {prompt: "How many faces are on a cylinder?", name: "q52",
+            options: ["5", "4", "2", "3"]},
+
+        {prompt: "Which of these numbers is prime?", name: "q53",
+            options: ["15", "16", "19", "21"]},
+
+        {prompt: "Halve 13", name: "q54", options: ["5.5", "7.5", "6.5", "4.5"]},
+
+        {prompt: "What is 90 - 53?", name: "q55", options: ["37", "47", "33", "29"]},
+
+        {prompt: "What is 10 - 11?", name: "q56", options: ["1", "2", "-2", "-1"]},
+
+        {prompt: "What is 43 - 13?", name: "q57", options: ["30", "29", "28", "31"]},
+
+        {prompt: "What is 5 - -8?", name: "q58", options: ["-13", "13", "-5", "12"]},
+
+        {prompt: "What is 56 + 42?", name: "q59", options: ["88", "98", "94", "86"]},
+
+        {prompt: "How many degrees are in a square?", name: "q60",
+            options: ["720", "360", "180", "420"]},
+
+        {prompt: "What is 5 x 13?", name: "q61", options: ["60", "75", "70", "65"]},
+
+        {prompt: "What is 0 x 0?", name: "q62", options: ["0.1", "0", "1", "2"]},
+
+        {prompt: "What is 0 / 0?", name: "q63", options: ["1", "0", "Undefined", "-1"]},
+
+        {prompt: "What is 93 - 89?", name: "q64", options: ["5", "4", "6", "7"]},
+
+        {prompt: "What is 120/30?", name: "q65", options: ["4", "3", "6", "2"]},
+
+        {prompt: "What is 5/5?", name: "q66", options: ["5", "2", "1", "0"]},
+
+        {prompt: "What is 4 x 22?", name: "q67", options: ["44", "88", "99", "80"]},
+
+        {prompt: "What is 60 + 82?", name: "q68", options: ["122", "136", "142", "132"]},
+
+        {prompt: "What is 10 to the power of 4?", name: "q69", options: ["100", "1000", "10000", "100000"]},
+
+        {prompt: "What is 58 + 90?", name: "q70", options: ["139", "150", "138", "148"]},
+
+        {prompt: "What is 83 - 67?", name: "q71", options: ["15", "16", "22", "23"]},
+
+        {prompt: "What is 34.5 to the nearest ten?", name: "q72",
+            options: ["30", "40", "35", "34"]},
+
+        {prompt: "What is the square root of 64?", name: "q73",
+            options: ["6", "12", "8", "16"]},
+
+        {prompt: "What is 54/6?", name: "q74", options: ["9", "6", "12", "4"]},
+
+        {prompt: "What is 11 x 11?", name: "q75", options: ["139", "111", "121", "100"]},
+
+        {prompt: "What is 73 - 37?", name: "q76", options: ["41", "51", "42", "36"]},
+
+        {prompt: "What is 7 squared?", name: "q77", options: ["41", "49", "56", "35"]},
+
+        {prompt: "What is 9 x 7?", name: "q78", options: ["63", "61", "70", "54"]},
+
+        {prompt: "What is 40 x 13?", name: "q79", options: ["520", "500", "540", "560"]},
+
+        {prompt: "How many centimetres are in 5 metres?", name: "q80",
+            options: ["50000", "500", "5", "50"]}
+            ],
+            };
+
+  const page3_qs = {
+      type: jsPsychSurveyMultiChoice,
+      preamble: `
+      <div style="padding-top: 40px;">
+      <p>Please answer all the questions <strong>in order</strong></p>
+    </div>
+    `,
+      data: {
+        trial_section: 'task'
+      },
+      questions: [
+        {prompt: "Which type of conditioning is referred to as learning by association?", name: 'q81',
+          options: ['Classical conditioning', 'Operant conditioning', 'Positive reinforcement', 'The law of effect']}, 
+          
         {prompt: "Which researchers conducted the Little Albert study?", name: 'q82', 
         options: ['Skinner', 'Pavlov', 'Watson and Rayner', 'Loftus and Palmer']},
         
@@ -221,7 +417,7 @@ const correctAnswers = {
         options: ['Schema development', 'Object permanence', 'Theory of mind', 'Conservation']},
         
         {prompt: "What characteristic of attachment did John Bowlby NOT list?", name: 'q94',
-        options: ['The safe haven', 'Separation comfort', 'The secure base', 'Proximity maintenance']},
+        options: ['The safe haven', 'Co-sleeping', 'The secure base', 'Proximity maintenance']},
         
         {prompt: "Which disorder is most prevalent among populations of children?", name: 'q95',
         options: ['Oppositional Defiant Disorder', 'Depressive disorder', 'Conduct disorder', 'Anxiety disorder']},
@@ -298,7 +494,7 @@ const correctAnswers = {
         {prompt: "What did Skinner use to teach rats to pull a lever?", name: 'q119',
         options: ['Manipulation', 'Classical conditioning', 'Positive reinforcement', 'Positive punishment']},
         
-        {prompt: "Which baby animal imprinted onto Gosling in his study?", name: 'q120',
+        {prompt: "Which baby animal imprinted onto Lorenz in his study?", name: 'q120',
         options: ['Mice', 'Kittens', 'Geese', 'Puppies']}
         ],
         };
@@ -315,8 +511,20 @@ const correctAnswers = {
       },
     questions: function() { //questions is a function
       const basePG4Questions = [
-      {prompt: "what?", name:'q121', options:['Here','no1','no2','no3']},
-      {prompt: "hmmm?", name:'q122', options:['Me','yes1','yes2','yes3']},
+        {prompt: "What is 0.4 + 1.5?", name: 'q121',
+        options: ['2.1', '3.4', '1.5', '1.9']},
+        
+        {prompt: "What is 3.9 - 1.8?", name: 'q122',
+        options: ['2.1', '2.3', '2.4', '2.5']},
+        
+        {prompt: "Which part of Phineas Gage’s brain was damaged?", name: 'q123',
+        options: ['Cerebellum', 'Midbrain', 'Corpus callossum', 'Frontal lobe']},
+        
+        {prompt: "What is the cell body of a neuron called", name: 'q124',
+        options: ['Axon terminal', 'Soma', 'Dendrites', 'Axons']},
+        
+        {prompt: "Who wrote \‘Odyssey\’?", name: 'q125',
+        options: ['Homer', 'Plato', 'Aristotle', 'Cicero']},
       ];
   
       //if no skipped qs globally, nothing to attach basePG4Questions to, if else then merge arrays
@@ -370,6 +578,8 @@ const correctAnswers = {
         let skipped_questions = new Set();
         let retry_correct = 0;
         let retry_incorrect = 0;
+
+        let notFoundNextCounter = 0;
     
         // CALCULATIONS 1: accuracy, RTs, skipped ================================================================
         trials.forEach(trial => {
@@ -406,6 +616,7 @@ const correctAnswers = {
               if (!foundNext) {
                 if (trial.submit_latency_from_last !== undefined && trial.submit_latency_from_last !== null) {
                   rt_after_skip.push(trial.submit_latency_from_last);
+                  notFoundNextCounter++;
                 }
               }
             }
@@ -442,7 +653,7 @@ const correctAnswers = {
           ? retry_rts.reduce((a, b) => a + b, 0) / retry_rts.length
           : null;
 
-        //================================================================================================
+
         // DEMOGRAPHICS ================================================================
         const demo_trial = jsPsych.data.get()
           .filter({ trial_section: "demographics" })
@@ -450,6 +661,28 @@ const correctAnswers = {
           .values()[0];
 
         const demo = demo_trial?.response ?? {}; 
+
+        // ASRS ================================================================
+
+        const asrs_trials = jsPsych.data.get()
+        .filter({ trial_section: "asrsQs" })
+        .values();
+
+        let asrs_total_ina = 0;
+        let asrs_total_hyp = 0;
+        let asrs_total_overall = 0;
+
+        asrs_trials.forEach(t => {
+          if (typeof t.asrs_total_ina === "number") {
+            asrs_total_ina = t.asrs_total_ina;
+          }
+          if (typeof t.asrs_total_hyp === "number") {
+            asrs_total_hyp = t.asrs_total_hyp;
+          }
+        });
+
+        asrs_total_overall = asrs_total_ina + asrs_total_hyp;
+
     
         jsPsych.data.write({
           trial_section: "summary",
@@ -461,6 +694,9 @@ const correctAnswers = {
           skipped_correct_retry: retry_correct,
           skipped_incorrect_retry: retry_incorrect,
           ...demo,
+          asrs_total_ina: asrs_total_ina,
+          asrs_total_hyp: asrs_total_hyp,
+          asrs_total_overall: asrs_total_overall,
           timestamp: Date.now()
         });
       }
@@ -472,5 +708,5 @@ const correctAnswers = {
       trial_section: 'end'
     },
     choices: ['End Experiment'],
-    stimulus: "<p>Data saved succesfully. Please click here to end the Experiment. You will be redirected to the SONA platform to recieve your credits. </p>"
+    stimulus: "<p>Data saved succesfully. Please click here to end the Experiment. You will be redirected to the SONA platform to recieve your credits.</p>"
   };

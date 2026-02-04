@@ -1,0 +1,24 @@
+/* CSS Attributes */
+input[type="radio"]:checked {
+    accent-color: #000;
+  }
+
+  .jspsych-btn {
+    margin-bottom: 40px;
+    margin-top: 30px;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  input[type="button"] {
+    margin-bottom: 40px;
+    margin-top: 30px;
+    padding: 10px;
+    font-size: 16px;
+  }
+
+  .jspsych-survey-multi-choice-question {
+    font-size: 38px;
+    padding: 35px 0;
+    
+  }

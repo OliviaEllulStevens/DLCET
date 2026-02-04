@@ -18,30 +18,10 @@
   <link rel="stylesheet" href="https://unpkg.com/@jspsych/plugin-survey@1.0.1/css/survey.css"/>
 
   <!-- Additional Scripts -->
+  <link rel="stylesheet" href="style.css">
   <script src = "trials.js"></script>
   <script src = "surveys.js"></script>
 
-  <style> 
-    /* CSS Attributes */
-    input[type="radio"]:checked {
-      accent-color: #000;
-    }
-
-    .jspsych-btn {
-      margin-bottom: 40px;
-      margin-top: 30px;
-      padding: 10px;
-      font-size: 16px;
-    }
-
-    input[type="button"] {
-      margin-bottom: 40px;
-      margin-top: 30px;
-      padding: 10px;
-      font-size: 16px;
-    }
-
-  </style>
 </head> 
 <body> 
   <label>
@@ -55,19 +35,19 @@ let skipped_glob = [];
 // INITIATE JSPSYCH ================================================================
 
 const jsPsych = initJsPsych({
-  // on_finish: function () {
-  //   const trials = jsPsych.data.get().filter({
-  //     trial_section: 'task' // Only relevant pages included in custom calculations.
-  //   }).values();
+  on_finish: function () {
+    // const trials = jsPsych.data.get().filter({
+    //   trial_section: 'task' // Only relevant pages included in custom calculations.
+    // }).values();
 
   // NOW save (LOCAL TESTING ONLY)
-  //jsPsych.data.get().localSave('csv', 'debug_local.csv');
+  jsPsych.data.get().localSave('csv', 'debug_local.csv');
   //jsPsych.data.get().filter({trial_section: 'task'}).localSave('csv','task_only.csv')
 
   // Optional debug
-  //console.log(jsPsych.data.get().values());
-  //jsPsych.data.displayData();
-  //  }
+  console.log(jsPsych.data.get().values());
+  jsPsych.data.displayData();
+   }
 
 });
 
@@ -93,9 +73,11 @@ function addSurveyLogic(trial) {
     window.acc_data = {}; 
     window.answered = {}; 
     window.page_start_time = performance.now();
-
+    window.click_log = [];
+    window.answer_click_count = {};
+    window.q_first_answer = {};
     window.q_counter = 0;
-    window.q_first_answer = {},
+    window.answeredPlural = 0;
     
     trial.questions.forEach(q => { // Overwritten for each new page.
       window.answered[q.name] = false;
@@ -132,6 +114,27 @@ function addSurveyLogic(trial) {
         } else {
             window.acc_data[qname] = null;
         }
+
+        if (!window.answer_click_count[qname]) {
+            window.answer_click_count[qname] = 0;
+          }
+          window.answer_click_count[qname]++;
+  
+          window.click_log.push({
+            qname: qname,
+            q_index: qIndex,
+            t_from_page_start: now - window.page_start_time,
+            click_number: window.answer_click_count[qname]
+          });
+
+          if (window.q_first_answer[qname] === null) {
+          window.q_first_answer[qname] = now;
+        }
+
+        if (window.answer_click_count[qname] === 2) {
+          window.answeredPlural++;
+        }
+          
           }
         );  
       } 
@@ -143,8 +146,12 @@ function addSurveyLogic(trial) {
   // ON FINISH ================================================================
 
   trial.on_finish = function(data) {
-
+    
     data.submit_latency_from_last = performance.now() - window.last_question_time;
+    data.answered_plural = window.answeredPlural ?? 0;
+    if (data.answered_plural === undefined) {
+      data.answered_plural = 0;
+    };
 
     trial.questions.forEach(q => {
       if(!window.answered[q.name]){
@@ -174,27 +181,74 @@ function addSurveyLogic(trial) {
       }
       data.skipped[questionName] = wasSkipped; 
     }
-    
-//     // ---- FLATTEN per-question RTs ----
-// if (data.rt_per_question) {
-//   for (let key in data.rt_per_question) {
-//     data["rt_" + key] = data.rt_per_question[key];  
-//   }
-// }
 
-// // ---- FLATTEN per-question accuracy ----
-// if (data.accuracy_per_question) {
-//   for (let key in data.accuracy_per_question) {
-//     data["acc_" + key] = data.accuracy_per_question[key];
-//   }
-// }
 
-// // ---- FLATTEN skipped flags ----
-// if (data.skipped) {
-//   for (let key in data.skipped) {
-//     data["skipped_" + key] = data.skipped[key]; 
-//   }
-// }
+  data.click_log = window.click_log;
+
+  // ================= SKIPPED THEN REANSWERED =================
+
+const answer_click_log = window.click_log || [];
+
+const firstClickTimes = {}; // q_index -> first click time
+
+answer_click_log.forEach(log => {
+  if (firstClickTimes[log.q_index] === undefined) {
+    firstClickTimes[log.q_index] = log.t_from_page_start;
+  }
+});
+
+const skippedThenReanswered = [];
+
+answer_click_log.forEach(log => {
+  const index = log.q_index;
+  const firstClickTime = firstClickTimes[index];
+
+  // only evaluate first click per question
+  if (log.t_from_page_start !== firstClickTime) return;
+
+  for (let higher = index + 1; higher < trial.questions.length; higher++) {
+    if (
+      firstClickTimes[higher] !== undefined &&
+      firstClickTimes[higher] < firstClickTime
+    ) {
+      skippedThenReanswered.push(log.qname);
+      break;
+    }
+  }
+});
+
+// EXPORT TO DATA (this is the key part)
+data.skipped_then_reanswered = skippedThenReanswered;
+data.skipped_then_reanswered_count = skippedThenReanswered.length;
+
+
+    // ---- FLATTEN per-question RTs ----
+if (data.rt_per_question) {
+  for (let key in data.rt_per_question) {
+    data["rt_" + key] = data.rt_per_question[key];  
+  }
+}
+
+// ---- FLATTEN per-question accuracy ----
+if (data.accuracy_per_question) {
+  for (let key in data.accuracy_per_question) {
+    data["acc_" + key] = data.accuracy_per_question[key];
+  }
+}
+
+// ---- FLATTEN skipped flags ----
+if (data.skipped) {
+  for (let key in data.skipped) {
+    data["skipped_" + key] = data.skipped[key]; 
+  }
+}
+
+// ---- FLATTEN ASRS responses ----
+if (data.trial_section === "asrsQs" && data.response) {
+    for (const [key, value] of Object.entries(data.response)) {
+        data[key] = value; 
+    }
+}
     };
 
   return trial;
@@ -243,11 +297,12 @@ timeline.push(instructions)
 
 timeline.push(...orderRandomisation)
 timeline.push(page4_trial)
-//timeline.push(break) ***************************************************************************************************************** Todo
+timeline.push(break_page) 
 
 
 // // Demographics ------------------------------------------------
-//timeline.push(asrs) ***************************************************************************************************************** Todo
+timeline.push(questionnaire_asrs_ina)
+timeline.push(questionnaire_asrs_hyp)
 timeline.push(demographics)
 
 
@@ -255,14 +310,13 @@ timeline.push(demographics)
 timeline.push(debrief)
 timeline.push(display_id)
 
-
-// // Save data via DataPipe -------
+// Save data via DataPipe -------
 const save_csv = {
     type: jsPsychPipe,
     action: "save",
     experiment_id: "PDziWg9wxGbF",
     filename: `${subject_id}_full.csv`,
-    data_string: ()=>jsPsych.data.get().sort({ trial_index: 'asc' }).csv()
+    data_string: ()=>jsPsych.data.get().csv()
   };
 
 const save_summary_csv = {

@@ -1,3 +1,4 @@
+// INFOSHEET AND CONSENT FORM INITIAL PAGE ======================================================================================
 const infoConsent = {
     type: jsPsychSurvey,
     survey_json: {
@@ -170,6 +171,7 @@ const infoConsent = {
       };
   
 
+// INSTRUCTIONS ======================================================================================
 const instructions = {
     type: jsPsychSurvey,
     survey_json: {
@@ -178,7 +180,6 @@ const instructions = {
       pages: [
       {
         elements: [
-          // INSTRUCTIONS ======================================================================================
           {
             type: "html",
             name: "instructions",
@@ -225,15 +226,55 @@ const instructions = {
     trial_section: "instructions"
   }
 };
+
+
+// BREAK BEFORE QUESTIONNAIRES ======================================================================================
+const break_page = {
+  type: jsPsychSurvey,
+  survey_json: {
+    title: "Break",
+    showQuestionNumbers: false,
+    pages: [
+      {
+        elements: [
+          {
+            type: "html",
+            name: "break_page",
+            html: `
+            <div>
+                <h3>
+                  Please take your time to have a break.
+                <h3>
+              </div>
+              <br>
+              <div style="text-align: centre;
+                max-width: 1000px;
+                margin: 0 auto;
+                line-height: 1.6;">
+                <p> 
+                  The next part of the experiment is a few questionnaires. Please click <strong>CONTINUE</strong> when you are ready to continue.
+                </p>
+            `,
+          }
+        ]
+      }
+    ]
+  },
+  data: {
+    trial_section: "break"
+  }
+}
       
+
+// DEMOGRAPHICS ======================================================================================
 const demographics = {
     type: jsPsychSurvey,
     survey_json: {
         title: "Please answer these demographics questions",
+        goNextPageAutomatic: false,
         pages: [
             {
                 elements: [
-                  // DEMOGRAPHICS ======================================================================================
                     {
                         title: "What is your age?",
                         name: "age",
@@ -263,3 +304,126 @@ const demographics = {
           trial_section: "demographics"}
     };
 
+
+// ADULT ADHD SELF-REPORT SCALE (ASRS-v1.1) ======================================================================================
+    const asrs_items_ina = {
+      ASRS_1:
+          "How often do you have trouble wrapping up the final details of a project, once the challenging parts have been done?",
+      ASRS_2:
+          "How often do you have difficulty getting things in order when you have to do a task that requires organization?",
+      ASRS_3:
+          "How often do you have problems remembering appointments or obligations?",
+      ASRS_4:
+          "When you have a task that requires a lot of thought, how often do you avoid or delay getting started?",
+      ASRS_7:
+          "How often do you make careless mistakes when you have to work on a boring or difficult project?",
+      ASRS_8:
+          "How often do you have difficulty keeping your attention when you are doing boring or repetitive work?",
+      ASRS_9:
+          "How often do you have difficulty concentrating on what people say to you, even when they are speaking to you directly?",
+      ASRS_10:
+          "How often do you misplace or have difficulty finding things at home or at work?",
+      ASRS_11:
+          "How often are you distracted by activity or noise around you?",
+      ASRS_12:
+          "How often do you leave your seat in meetings or other situations in which you are expected to remain seated?",
+  }
+
+  const asrs_items_hyp = {
+    ASRS_5:
+        "How often do you fidget or squirm with your hands or feet when you have to sit down for a long time?",
+    ASRS_6:
+        "How often do you feel overly active and compelled to do things, like you were driven by a motor?",
+    ASRS_13:
+        "How often do you feel restless or fidgety?",
+    ASRS_14:
+        "How often do you have difficulty unwinding and relaxing when you have time to yourself?",
+    ASRS_15:
+        "How often do you find yourself talking too much when you are in social situations?",
+    ASRS_16:
+        "When you’re in a conversation, how often do you find yourself finishing the sentences of the people you are talking to, before they can finish them themselves?",
+    ASRS_17:
+        "How often do you have difficulty waiting your turn in situations when turn taking is required?",
+    ASRS_18:
+        "How often do you interrupt others when they are busy?"
+}
+  
+  function make_asrs(items, required = true) {
+
+    asrs_questions = []
+
+    const likert = [
+      { value: 0, text: "Never" },
+      { value: 1, text: "Rarely" },
+      { value: 2, text: "Sometimes" },
+      { value: 3, text: "Often" },
+      { value: 4, text: "Very Often" },
+  ]
+
+    for (const key of Object.keys(items)) {
+        q = {
+            title: items[key],
+            name: key,
+            type: "rating",
+            displayMode: "buttons",
+            isRequired: required,
+            rateValues: likert,
+        }
+        asrs_questions.push(q)
+    }
+
+    return { elements: asrs_questions }
+}
+const questionnaire_asrs_ina = {
+  type: jsPsychSurvey,
+  survey_json: function () {
+      return {
+          title: "SURVEY PART 1",
+          description:
+              "Please indicate how often each statement has applied to you over the past 6 months.",
+          showQuestionNumbers: false,
+          goNextPageAutomatic: false,
+          pages: [
+            make_asrs(asrs_items_ina) 
+        ],
+      }
+  },
+
+  on_finish: function (data) {
+      let total = 0
+      Object.values(data.response).forEach(v => {
+          total += v
+      })
+      data.asrs_total_ina = total
+  },
+  data: {
+      trial_section: "asrsQs"
+  },
+}
+
+const questionnaire_asrs_hyp = {
+  type: jsPsychSurvey,
+  survey_json: function () {
+      return {
+          title: "SURVEY PART 2",
+          description:
+              "Please indicate how often each statement has applied to you over the past 6 months.",
+          showQuestionNumbers: false,
+          goNextPageAutomatic: false,
+          pages: [
+            make_asrs(asrs_items_hyp) 
+        ],
+      }
+  },
+
+  on_finish: function (data) {
+      let total = 0
+      Object.values(data.response).forEach(v => {
+          total += v
+      })
+      data.asrs_total_hyp = total
+  },
+  data: {
+      trial_section: "asrsQs"
+  },
+}
