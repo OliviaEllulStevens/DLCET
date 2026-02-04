@@ -41,12 +41,12 @@ const jsPsych = initJsPsych({
     // }).values();
 
   // NOW save (LOCAL TESTING ONLY)
-  jsPsych.data.get().localSave('csv', 'debug_local.csv');
+  //jsPsych.data.get().localSave('csv', 'debug_local.csv');
   //jsPsych.data.get().filter({trial_section: 'task'}).localSave('csv','task_only.csv')
 
   // Optional debug
-  console.log(jsPsych.data.get().values());
-  jsPsych.data.displayData();
+  // console.log(jsPsych.data.get().values());
+  // jsPsych.data.displayData();
    }
 
 });
@@ -55,6 +55,8 @@ const jsPsych = initJsPsych({
 // SUBJECT ID ================================================================
 const subject_id = jsPsych.randomization.randomID(6);
 const filename = `${subject_id}.csv`;
+
+jsPsych.data.addProperties({ subject_id });
 
 
 // ADD CUSTOM LOGIC ================================================================
