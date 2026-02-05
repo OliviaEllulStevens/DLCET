@@ -20,5 +20,60 @@ input[type="radio"]:checked {
   .jspsych-survey-multi-choice-question {
     font-size: 38px;
     padding: 35px 0;
-    
   }
+
+  .jspsych-survey-multi-choice-question p {
+    line-height: 1.5;
+  }  
+
+/* ===== Custom radio (base) ===== */
+.jspsych-survey-multi-choice-option input[type="radio"] {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  width: 28px;
+  height: 28px;
+  border: 3px solid black;
+  border-radius: 50%;
+  margin-right: 16px;
+  position: relative;
+  cursor: pointer;
+  background: white;
+  flex-shrink: 0;
+}
+
+/* Checked dot */
+.jspsych-survey-multi-choice-option input[type="radio"]:checked::before {
+  content: "";
+  width: 14px;
+  height: 14px;
+  background: black;
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Disabled — keep SAME appearance */
+.jspsych-survey-multi-choice-option input[type="radio"]:disabled {
+  opacity: 1;              /* prevent grey fade */
+  cursor: default;
+}
+
+/* Disabled + checked still shows dot */
+.jspsych-survey-multi-choice-option input[type="radio"]:disabled:checked::before {
+  background: black;
+}
+
+/* Layout */
+.jspsych-survey-multi-choice-option label {
+  display: flex;
+  align-items: center;
+  font-size: 38px;
+}
+
+.jspsych-survey-multi-choice-option {
+  margin: 20px 0;
+}

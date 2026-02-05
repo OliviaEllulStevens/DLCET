@@ -43,7 +43,7 @@ const infoConsent = {
   
                 <h4>What Will Happen to Me If I Take Part?</h4>
                 <p>
-                  If you choose to participate, you will complete an online study that has two parts. First, you will answer a variety of short multiple-choice questions about general knowledge and maths. After this, you will complete a questionnaire in which you will be asked to rate how strongly you agree or disagree with a series of statements, and you may also choose to provide demographic information.
+                  If you choose to participate, you will complete an online study that has two parts. First, you will answer a variety of short multiple-choice questions about general knowledge, psychology and maths. After this, you will complete a questionnaire in which you will be asked to rate how strongly you agree or disagree with a series of statements, and you may also choose to provide demographic information.
                 </p>
   
                 <h4>What Are the Possible Benefits of Taking Part?</h4>
@@ -103,7 +103,7 @@ const infoConsent = {
                 <p style="max-width:1000px; margin:0 auto; line-height:1.6; text-align:left;">
                   Please read through the consent form carefully. If you are happy to proceed,
                   please tick <strong>every</strong> box and click <strong>Complete</strong>.
-                  If you do <strong>not</strong> consent, please exit the window (via Esc) and simply close your browser.
+                  If you do <strong>not</strong> consent, please exit the window and simply close your browser.
                 </p>
                 <br>
               `
@@ -185,8 +185,8 @@ const instructions = {
             name: "instructions",
             html: `
               <div>
-                <h3>
-                  READ THROUGH THESE INSTRUCTIONS CAREFULLY
+                <h3 style = "color:red">
+                  !READ THROUGH THESE INSTRUCTIONS CAREFULLY!
                 <h3>
               </div>
               <br>
@@ -214,7 +214,7 @@ const instructions = {
                 <p>
                   After your break, you will complete a questionnaire in which you will be asked to rate how strongly you agree or disagree with a series of statements, and you may also choose to provide demographic information.
                 </p>
-                  Click <strong>'I understand'</strong> to begin. The questionnaire will start immediately. 
+                  Click <strong>'Complete'</strong> to begin. The questionnaire will start immediately. 
               </div>
               `,
           }

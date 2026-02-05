@@ -134,7 +134,7 @@ const correctAnswers = {
     type: jsPsychSurveyMultiChoice,
     preamble: `
       <div style="padding-top: 40px;">
-      <p>Please answer all the questions <strong>in order</strong></p>
+      <h2>General Knowledge Round</h2>
     </div>
     `,
       data: {
@@ -267,7 +267,7 @@ const correctAnswers = {
     type: jsPsychSurveyMultiChoice,
     preamble: `
       <div style="padding-top: 40px;">
-      <p>Please answer all the questions <strong>in order</strong></p>
+      <h2>Maths Round</h2>
     </div>
     `,
     data: {
@@ -370,7 +370,7 @@ const correctAnswers = {
       type: jsPsychSurveyMultiChoice,
       preamble: `
       <div style="padding-top: 40px;">
-      <p>Please answer all the questions <strong>in order</strong></p>
+      <h2>Psychology Round</h2>
     </div>
     `,
       data: {
@@ -503,7 +503,7 @@ const correctAnswers = {
     type: jsPsychSurveyMultiChoice,
     preamble: `
       <div style="padding-top: 40px;">
-      <p>Please answer all the questions <strong>in order</strong></p>
+      <h2><strong>BONUS ROUND!</strong></h2>
     </div>
     `,
     data: {
@@ -708,5 +708,8 @@ const correctAnswers = {
       trial_section: 'end'
     },
     choices: ['End Experiment'],
-    stimulus: "<p>Data saved succesfully. Please click here to end the Experiment. You will be redirected to the SONA platform to recieve your credits.</p>"
+    stimulus: `
+    <h2 style = 'color=green'>Data saved succesfully.</h2>
+    <p>Please click here to end the Experiment. You will be redirected to the SONA platform to recieve your credits.</p>
+    `
   };

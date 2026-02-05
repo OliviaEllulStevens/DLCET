@@ -41,12 +41,12 @@ const jsPsych = initJsPsych({
     // }).values();
 
   // NOW save (LOCAL TESTING ONLY)
-  //jsPsych.data.get().localSave('csv', 'debug_local.csv');
+  jsPsych.data.get().localSave('csv', 'debug_local.csv');
   //jsPsych.data.get().filter({trial_section: 'task'}).localSave('csv','task_only.csv')
 
   // Optional debug
   // console.log(jsPsych.data.get().values());
-  // jsPsych.data.displayData();
+  jsPsych.data.displayData();
    }
 
 });
@@ -75,17 +75,17 @@ function addSurveyLogic(trial) {
     window.acc_data = {}; 
     window.answered = {}; 
     window.page_start_time = performance.now();
-    window.click_log = [];
-    window.answer_click_count = {};
-    window.q_first_answer = {};
-    window.q_counter = 0;
-    window.answeredPlural = 0;
+    // window.click_log = [];
+    // window.answer_click_count = {};
+    // window.q_first_answer = {};
+    // window.q_counter = 0;
+    // window.answeredPlural = 0;
     
     trial.questions.forEach(q => { // Overwritten for each new page.
       window.answered[q.name] = false;
       window.rt_data[q.name] = null;
       window.acc_data[q.name] = null;
-      window.q_first_answer[q.name] = null;
+      // window.q_first_answer[q.name] = null;
     });
   
 
@@ -97,7 +97,31 @@ function addSurveyLogic(trial) {
         radio.addEventListener("click", function(event) { // Attached event (i.e. a click) listeners to every radiobutton.
           let now = performance.now(); // Know which question was clicked by pasring radio input's name.
 
+          const radioName = event.target.name;
+          const allRadiosSameQuestion = document.querySelectorAll(
+            `input[type="radio"][name="${radioName}"]`
+          );
+
+          allRadiosSameQuestion.forEach(r => {
+            r.disabled = true;
+          });
+
           const qIndex = parseInt(event.target.name.replace("jspsych-survey-multi-choice-response-",""));
+
+          // Disable all EARLIER skipped questions
+          for (let i = 0; i < qIndex; i++) {
+            const earlierQ = trial.questions[i].name;
+
+            if (!window.answered[earlierQ]) {
+              const skippedRadios = document.querySelectorAll(
+                `input[type="radio"][name="jspsych-survey-multi-choice-response-${i}"]`
+              );
+
+              skippedRadios.forEach(r => {
+                r.disabled = true;
+              });
+            }
+          }
 
           const qname = trial.questions[qIndex].name;
 
@@ -117,25 +141,25 @@ function addSurveyLogic(trial) {
             window.acc_data[qname] = null;
         }
 
-        if (!window.answer_click_count[qname]) {
-            window.answer_click_count[qname] = 0;
-          }
-          window.answer_click_count[qname]++;
+        // if (!window.answer_click_count[qname]) {
+        //     window.answer_click_count[qname] = 0;
+        //   }
+        //   window.answer_click_count[qname]++;
   
-          window.click_log.push({
-            qname: qname,
-            q_index: qIndex,
-            t_from_page_start: now - window.page_start_time,
-            click_number: window.answer_click_count[qname]
-          });
+        //   window.click_log.push({
+        //     qname: qname,
+        //     q_index: qIndex,
+        //     t_from_page_start: now - window.page_start_time,
+        //     click_number: window.answer_click_count[qname]
+        //   });
 
-          if (window.q_first_answer[qname] === null) {
-          window.q_first_answer[qname] = now;
-        }
+        //   if (window.q_first_answer[qname] === null) {
+        //   window.q_first_answer[qname] = now;
+        // }
 
-        if (window.answer_click_count[qname] === 2) {
-          window.answeredPlural++;
-        }
+        // if (window.answer_click_count[qname] === 2) {
+        //   window.answeredPlural++;
+        // }
           
           }
         );  
@@ -150,10 +174,10 @@ function addSurveyLogic(trial) {
   trial.on_finish = function(data) {
     
     data.submit_latency_from_last = performance.now() - window.last_question_time;
-    data.answered_plural = window.answeredPlural ?? 0;
-    if (data.answered_plural === undefined) {
-      data.answered_plural = 0;
-    };
+    // data.answered_plural = window.answeredPlural ?? 0;
+    // if (data.answered_plural === undefined) {
+    //   data.answered_plural = 0;
+    // };
 
     trial.questions.forEach(q => {
       if(!window.answered[q.name]){
@@ -185,43 +209,43 @@ function addSurveyLogic(trial) {
     }
 
 
-  data.click_log = window.click_log;
+  //data.click_log = window.click_log;
 
-  // ================= SKIPPED THEN REANSWERED =================
+//   // ================= SKIPPED THEN REANSWERED =================
 
-const answer_click_log = window.click_log || [];
+// const answer_click_log = window.click_log || [];
 
-const firstClickTimes = {}; // q_index -> first click time
+// const firstClickTimes = {}; // q_index -> first click time
 
-answer_click_log.forEach(log => {
-  if (firstClickTimes[log.q_index] === undefined) {
-    firstClickTimes[log.q_index] = log.t_from_page_start;
-  }
-});
+// answer_click_log.forEach(log => {
+//   if (firstClickTimes[log.q_index] === undefined) {
+//     firstClickTimes[log.q_index] = log.t_from_page_start;
+//   }
+// });
 
-const skippedThenReanswered = [];
+// const skippedThenReanswered = [];
 
-answer_click_log.forEach(log => {
-  const index = log.q_index;
-  const firstClickTime = firstClickTimes[index];
+// answer_click_log.forEach(log => {
+//   const index = log.q_index;
+//   const firstClickTime = firstClickTimes[index];
 
-  // only evaluate first click per question
-  if (log.t_from_page_start !== firstClickTime) return;
+//   // only evaluate first click per question
+//   if (log.t_from_page_start !== firstClickTime) return;
 
-  for (let higher = index + 1; higher < trial.questions.length; higher++) {
-    if (
-      firstClickTimes[higher] !== undefined &&
-      firstClickTimes[higher] < firstClickTime
-    ) {
-      skippedThenReanswered.push(log.qname);
-      break;
-    }
-  }
-});
+//   for (let higher = index + 1; higher < trial.questions.length; higher++) {
+//     if (
+//       firstClickTimes[higher] !== undefined &&
+//       firstClickTimes[higher] < firstClickTime
+//     ) {
+//       skippedThenReanswered.push(log.qname);
+//       break;
+//     }
+//   }
+// });
 
-// EXPORT TO DATA (this is the key part)
-data.skipped_then_reanswered = skippedThenReanswered;
-data.skipped_then_reanswered_count = skippedThenReanswered.length;
+// // EXPORT TO DATA (this is the key part)
+// data.skipped_then_reanswered = skippedThenReanswered;
+// data.skipped_then_reanswered_count = skippedThenReanswered.length;
 
 
     // ---- FLATTEN per-question RTs ----
@@ -266,7 +290,7 @@ const display_id = {
       <p><strong>Your Participant ID is:</strong></p>
       <p style="font-size: 24px;">${subject_id}</p>
       <p>Please write this ID down for your records.</p>
-      <p style = "max-width: 1000px; margin: 0 auto;"">If you wish to withdraw your data from this study, you must provide this unique participant identification code. As the study is conducted anonymously, we will be unable to identify or remove your data without this code.</p>
+      <p style = "max-width: 1000px; margin: 0 auto;"">If you wish to withdraw your data from this study or if something goes wrong, you must provide this unique participant identification code. As the study is conducted anonymously, we will be unable to identify or remove your data without this code.</p>
     `,
     choices: ["Continue"]
   };
