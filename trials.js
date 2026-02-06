@@ -14,7 +14,7 @@ const correctAnswers = {
   q12: "Entomophobia",
   q13: "Saturn",
   q14: "Macbeth",
-  q15: "Blinky",
+  q15: "Plinky",
   q16: "1969",
   q17: "Aldous Huxley",
   q18: "Gimli",
@@ -184,7 +184,7 @@ const correctAnswers = {
         options: ["Romeo and Juliet", "Macbeth", "Hamlet", "Othello"]},
     
         {prompt: "Which of these is NOT a ghost from the game pac-man?", name: "q15", 
-        options: ["Inky", "Pinky", "Clyde", "Blinky"]},
+        options: ["Inky", "Pinky", "Clyde", "Plinky"]},
     
         {prompt: "What year was the Moon Landing?", name: "q16", 
         options: ["1960", "1964", "1969", "1972"]},
@@ -192,7 +192,7 @@ const correctAnswers = {
         {prompt: "Who wrote ‘Brave New World’?", name: "q17", 
         options: ["George Orwell", "Isaac Aasimov", "Aldous Huxley", "Arthur C Clarke"]},
     
-        {prompt: "Which of these names belongs to a dwarf in Lord of the Rings?", name: "q18", 
+        {prompt: "Which of these names belongs to a dwarf in Lord of the Rings trilogy?", name: "q18", 
         options: ["Thorin", "Merry", "Gimli", "Bombur"]},
     
         {prompt: "In which book is \‘42\’ the answer to life, the universe, and everything?", name: "q19", 
@@ -503,7 +503,7 @@ const correctAnswers = {
     type: jsPsychSurveyMultiChoice,
     preamble: `
       <div style="padding-top: 40px;">
-      <h2><strong>BONUS ROUND!</strong></h2>
+      <h2><strong>FINAL ROUND! MIXED TOPIC!</strong></h2>
     </div>
     `,
     data: {
@@ -709,7 +709,8 @@ const correctAnswers = {
     },
     choices: ['End Experiment'],
     stimulus: `
-    <h2 style = 'color=green'>Data saved succesfully.</h2>
-    <p>Please click here to end the Experiment. You will be redirected to the SONA platform to recieve your credits.</p>
+    <h2 style = "color=green">Data saved succesfully.</h2>
+    <p>Please click here to end the Experiment.</p>
+    <p>You will be redirected to the SONA platform to recieve your credits.</p>
     `
   };

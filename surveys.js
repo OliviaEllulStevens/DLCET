@@ -73,7 +73,7 @@ const infoConsent = {
   
                 <h4>Who Has Approved This Study?</h4>
                 <p>
-                  This research has been approved by the School of Psychology ethical review process (ER/NUMBER).
+                  This research has been approved by the School of Psychology ethical review process (ER/0866).
                 </p>
   
                 <h4>Contact for Further Information</h4>
@@ -195,7 +195,7 @@ const instructions = {
                 margin: 0 auto;
                 line-height: 1.6;">
                 <p> 
-                  You will see four pages of multiple choice questions. 
+                  You will see three pages of multiple choice questions. 
                 </p>
                 <ul>
                   <li style="margin-bottom: 15px;">
@@ -209,7 +209,7 @@ const instructions = {
                   </li>
                   </ul>
                 <p>
-                  After you complete all four pages of questions, you will be allowed to take a break.
+                  After you complete all three pages of questions, you will be allowed to take a break.
                 <p>
                 <p>
                   After your break, you will complete a questionnaire in which you will be asked to rate how strongly you agree or disagree with a series of statements, and you may also choose to provide demographic information.

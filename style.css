@@ -18,8 +18,8 @@ input[type="radio"]:checked {
   }
 
   .jspsych-survey-multi-choice-question {
-    font-size: 38px;
-    padding: 35px 0;
+    font-size: 16px;
+    padding: 10px 0;
   }
 
   .jspsych-survey-multi-choice-question p {
