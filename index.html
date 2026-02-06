@@ -30,6 +30,8 @@
 </body>
 <script>
 
+// Get SONA participant ID from URL
+//let sona_id = jsPsych.data.urlVariables()['sona_id'];
 let skipped_glob = []; 
 
 // INITIATE JSPSYCH ================================================================
@@ -41,14 +43,24 @@ const jsPsych = initJsPsych({
     // }).values();
 
   // NOW save (LOCAL TESTING ONLY)
-  jsPsych.data.get().localSave('csv', 'debug_local.csv');
+  //jsPsych.data.get().localSave('csv', 'debug_local.csv');
   //jsPsych.data.get().filter({trial_section: 'task'}).localSave('csv','task_only.csv')
 
-  // Optional debug
-  // console.log(jsPsych.data.get().values());
-  jsPsych.data.displayData();
-   }
+  // Only redirect if coming from SONA
+  //   if (sona_id !== undefined) {
+  //     window.location.assign(
+  //       "https://sussexpsychology.sona-systems.com/webstudy_credit.aspx" +
+  //       "?experiment_id=123" +
+  //       "&credit_token=4e48f9b638a" +
+  //       "&survey_code=" + sona_id
+  //     );
+  //   } else {
+  //     // Fallback for non-SONA testing
+  //     jsPsych.data.displayData();
+  //  }
 
+   //jsPsych.data.displayData();
+  }
 });
 
 
@@ -287,10 +299,10 @@ if (data.trial_section === "asrsQs" && data.response) {
 const display_id = {
     type: jsPsychHtmlButtonResponse,
     stimulus: `
-      <p><strong>Your Participant ID is:</strong></p>
-      <p style="font-size: 24px;">${subject_id}</p>
-      <p>Please write this ID down for your records.</p>
-      <p style = "max-width: 1000px; margin: 0 auto;"">If you wish to withdraw your data from this study or if something goes wrong, you must provide this unique participant identification code. As the study is conducted anonymously, we will be unable to identify or remove your data without this code.</p>
+      <p><strong>Your Unique Participant ID is:</strong></p>
+      <p style="font-size: 45px;">${subject_id}</p>
+      <p>Please <strong>write this ID down</strong> for your records.</p>
+      <p style = "max-width: 1000px; margin: 0 auto;"">If you wish to withdraw your data from this study, or if you experience any issues related to credits, you must provide this unique participant identification code. As the study is conducted anonymously, we will be <u>unable to identify or remove your data</u> without this code.</p>
     `,
     choices: ["Continue"]
   };
@@ -367,7 +379,6 @@ timeline.push(save_summary_trial)
 timeline.push(...save_data)
 timeline.push(end_test)
 timeline.push({ type: jsPsychFullscreen, fullscreen_mode: false })
-// ------------------------------------------------------------------------------add sona save, auto credits
 
 
 // RUN THE TIMELINE ================================================================

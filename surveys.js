@@ -186,7 +186,7 @@ const instructions = {
             html: `
               <div>
                 <h3 style = "color:red">
-                  !READ THROUGH THESE INSTRUCTIONS CAREFULLY!
+                   ! READ THROUGH THESE INSTRUCTIONS CAREFULLY !
                 <h3>
               </div>
               <br>
@@ -194,27 +194,27 @@ const instructions = {
                 max-width: 1000px;
                 margin: 0 auto;
                 line-height: 1.6;">
-                <p> 
+                <p style="font-size: 20px"> 
                   You will see three pages of multiple choice questions. 
                 </p>
                 <ul>
-                  <li style="margin-bottom: 15px;">
+                  <li style="margin-bottom: 20px; font-size: 20px">
                     Answer each question <strong>IN ORDER</strong>, from top to bottom.
                   </li>
-                  <li style="margin-bottom: 15px;">
-                    Once you select an answer, please <strong>DO NOT</strong> change it.
+                  <li style="margin-bottom: 20px; font-size: 20px">
+                    Once you select an answer, you <strong>CAN NOT</strong> change it.
                   </li>
-                  <li style="margin-bottom: 15px;">
+                  <li style="margin-bottom: 20px; font-size: 20px">
                     At the end of each page, there will be a <strong>'Submit'</strong> button to move onto the next page. The new page will start immediately.
                   </li>
                   </ul>
-                <p>
+                <p style="margin-bottom: 20px; font-size: 20px">
                   After you complete all three pages of questions, you will be allowed to take a break.
-                <p>
-                <p>
+                </p>
+                <p style="margin-bottom: 20px; font-size: 20px">
                   After your break, you will complete a questionnaire in which you will be asked to rate how strongly you agree or disagree with a series of statements, and you may also choose to provide demographic information.
                 </p>
-                  Click <strong>'Complete'</strong> to begin. The questionnaire will start immediately. 
+                <p style="margin-bottom: 20px; font-size: 20px">Click <strong>'Complete'</strong> to begin. The questionnaire will start immediately.</p>
               </div>
               `,
           }
