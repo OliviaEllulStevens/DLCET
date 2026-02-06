@@ -578,6 +578,7 @@ const correctAnswers = {
         let skipped_questions = new Set();
         let retry_correct = 0;
         let retry_incorrect = 0;
+        let skipped_again = 0;
 
         let notFoundNextCounter = 0;
     
@@ -632,6 +633,11 @@ const correctAnswers = {
     
             const base_q = q.replace('_retry', '');
             if (!skipped_questions.has(base_q)) return;
+
+            if (response == null || response === '') {
+              skipped_again++;
+              return;
+            }
     
             if (correctAnswers[base_q] === response) retry_correct++;
             else retry_incorrect++;
@@ -691,8 +697,10 @@ const correctAnswers = {
           rt_overall_mean: rt_overall_mean,
           retry_rts_mean: retry_rts_mean,
           rt_after_skip_mean: rt_after_skip_mean,
+          notFoundNextCounter: notFoundNextCounter,
           skipped_correct_retry: retry_correct,
           skipped_incorrect_retry: retry_incorrect,
+          skipped_again: skipped_again,
           ...demo,
           asrs_total_ina: asrs_total_ina,
           asrs_total_hyp: asrs_total_hyp,

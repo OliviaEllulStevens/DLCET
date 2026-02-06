@@ -378,7 +378,7 @@ const questionnaire_asrs_ina = {
   type: jsPsychSurvey,
   survey_json: function () {
       return {
-          title: "SURVEY PART 1",
+          title: "Questionnaire Part 1",
           description:
               "Please indicate how often each statement has applied to you over the past 6 months.",
           showQuestionNumbers: false,
@@ -405,7 +405,7 @@ const questionnaire_asrs_hyp = {
   type: jsPsychSurvey,
   survey_json: function () {
       return {
-          title: "SURVEY PART 2",
+          title: "Questionnaire Part 2",
           description:
               "Please indicate how often each statement has applied to you over the past 6 months.",
           showQuestionNumbers: false,

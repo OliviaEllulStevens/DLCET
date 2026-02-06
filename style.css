@@ -19,7 +19,7 @@ input[type="radio"]:checked {
 
   .jspsych-survey-multi-choice-question {
     font-size: 16px;
-    margin-bottom: 8px !important;
+    margin-bottom: 8px;
   }
 
   .jspsych-survey-multi-choice-question p {
