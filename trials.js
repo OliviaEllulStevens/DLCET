@@ -717,7 +717,7 @@ const correctAnswers = {
     },
     choices: ['End Experiment'],
     stimulus: `
-    <h2 style = "color=green">Data saved succesfully.</h2>
+    <p style = "color=green">Data saved succesfully.</p>
     <p>Please click here to end the Experiment.</p>
     <p>You will be redirected to the SONA platform to recieve your credits.</p>
     `
