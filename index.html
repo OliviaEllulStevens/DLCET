@@ -31,16 +31,16 @@
 <script>
 
 // Get SONA participant ID from URL
-let sona_id = jsPsych.data.urlVariables()['sona_id'];
+const urlParams = new URLSearchParams(window.location.search);
+const sona_id = urlParams.get("sona_id");
+
+
 let skipped_glob = []; 
 
 // INITIATE JSPSYCH ================================================================
 
 const jsPsych = initJsPsych({
   on_finish: function () {
-    // const trials = jsPsych.data.get().filter({
-    //   trial_section: 'task' // Only relevant pages included in custom calculations.
-    // }).values();
 
   // NOW save (LOCAL TESTING ONLY)
   //jsPsych.data.get().localSave('csv', 'debug_local.csv');
@@ -51,12 +51,10 @@ const jsPsych = initJsPsych({
       window.location.assign(
         "https://sussexpsychology.sona-systems.com/webstudy_credit.aspx?experiment_id=2046&credit_token=2f9c65f1deaa4a579733e3ef9b111524&survey_code=&survey_code=" + sona_id
       );
-    } else {
-      // Fallback for non-SONA testing
-      jsPsych.data.displayData();
+    // } else {
+    //   // Fallback for non-SONA testing
+    //   jsPsych.data.displayData();
    }
-
-   //jsPsych.data.displayData();
   }
 });
 
@@ -84,17 +82,11 @@ function addSurveyLogic(trial) {
     window.acc_data = {}; 
     window.answered = {}; 
     window.page_start_time = performance.now();
-    // window.click_log = [];
-    // window.answer_click_count = {};
-    // window.q_first_answer = {};
-    // window.q_counter = 0;
-    // window.answeredPlural = 0;
     
     trial.questions.forEach(q => { // Overwritten for each new page.
       window.answered[q.name] = false;
       window.rt_data[q.name] = null;
       window.acc_data[q.name] = null;
-      // window.q_first_answer[q.name] = null;
     });
   
 
@@ -149,26 +141,6 @@ function addSurveyLogic(trial) {
         } else {
             window.acc_data[qname] = null;
         }
-
-        // if (!window.answer_click_count[qname]) {
-        //     window.answer_click_count[qname] = 0;
-        //   }
-        //   window.answer_click_count[qname]++;
-  
-        //   window.click_log.push({
-        //     qname: qname,
-        //     q_index: qIndex,
-        //     t_from_page_start: now - window.page_start_time,
-        //     click_number: window.answer_click_count[qname]
-        //   });
-
-        //   if (window.q_first_answer[qname] === null) {
-        //   window.q_first_answer[qname] = now;
-        // }
-
-        // if (window.answer_click_count[qname] === 2) {
-        //   window.answeredPlural++;
-        // }
           
           }
         );  
@@ -183,10 +155,6 @@ function addSurveyLogic(trial) {
   trial.on_finish = function(data) {
     
     data.submit_latency_from_last = performance.now() - window.last_question_time;
-    // data.answered_plural = window.answeredPlural ?? 0;
-    // if (data.answered_plural === undefined) {
-    //   data.answered_plural = 0;
-    // };
 
     trial.questions.forEach(q => {
       if(!window.answered[q.name]){
@@ -216,46 +184,6 @@ function addSurveyLogic(trial) {
       }
       data.skipped[questionName] = wasSkipped; 
     }
-
-
-  //data.click_log = window.click_log;
-
-//   // ================= SKIPPED THEN REANSWERED =================
-
-// const answer_click_log = window.click_log || [];
-
-// const firstClickTimes = {}; // q_index -> first click time
-
-// answer_click_log.forEach(log => {
-//   if (firstClickTimes[log.q_index] === undefined) {
-//     firstClickTimes[log.q_index] = log.t_from_page_start;
-//   }
-// });
-
-// const skippedThenReanswered = [];
-
-// answer_click_log.forEach(log => {
-//   const index = log.q_index;
-//   const firstClickTime = firstClickTimes[index];
-
-//   // only evaluate first click per question
-//   if (log.t_from_page_start !== firstClickTime) return;
-
-//   for (let higher = index + 1; higher < trial.questions.length; higher++) {
-//     if (
-//       firstClickTimes[higher] !== undefined &&
-//       firstClickTimes[higher] < firstClickTime
-//     ) {
-//       skippedThenReanswered.push(log.qname);
-//       break;
-//     }
-//   }
-// });
-
-// // EXPORT TO DATA (this is the key part)
-// data.skipped_then_reanswered = skippedThenReanswered;
-// data.skipped_then_reanswered_count = skippedThenReanswered.length;
-
 
     // ---- FLATTEN per-question RTs ----
 if (data.rt_per_question) {
