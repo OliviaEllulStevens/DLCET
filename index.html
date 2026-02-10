@@ -32,10 +32,12 @@
 
 // Get SONA participant ID from URL
 const urlParams = new URLSearchParams(window.location.search);
-const sona_id = urlParams.get("sona_id");
+const sona_id = urlParams.get("sona_id");     
 
 
+// Global skipped questions counter. 
 let skipped_glob = []; 
+
 
 // INITIATE JSPSYCH ================================================================
 
@@ -49,7 +51,7 @@ const jsPsych = initJsPsych({
   // Only redirect if coming from SONA
     if (sona_id !== undefined) {
       window.location.assign(
-        "https://sussexpsychology.sona-systems.com/webstudy_credit.aspx?experiment_id=2046&credit_token=2f9c65f1deaa4a579733e3ef9b111524&survey_code=&survey_code=" + sona_id
+        "https://sussexpsychology.sona-systems.com/webstudy_credit.aspx?experiment_id=2046&credit_token=2f9c65f1deaa4a579733e3ef9b111524&survey_code=" + sona_id
       );
     // } else {
     //   // Fallback for non-SONA testing
