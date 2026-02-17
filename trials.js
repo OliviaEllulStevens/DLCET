@@ -22,7 +22,7 @@ const correctAnswers = {
   q20: "366",
   q21: "4",
   q22: "Fred",
-  q23: "Mortimer Mouse",
+  q23: "Mortimer Mouse", 
   q24: "The Beatles",
   q25: "Photosynthesis",
   q26: "Neil Diamond",
@@ -83,7 +83,7 @@ const correctAnswers = {
   q81: "Classical conditioning",
   q82: "Watson and Rayner",
   q83: "Negative reinforcement",
-  q84: "The neutral stimulus",
+  q84: "The bell",
   q85: "Extinction",
   q86: "Reading colour-related words with matching or differing text colour",
   q87: "Beck\’s cognitive triad",
@@ -208,7 +208,7 @@ const correctAnswers = {
         options: ["George", "John", "Fred", "Jacob"]},
     
         {prompt: "What was Mickey Mouse originally called?", name: "q23", 
-        options: ["Thomas Mouse", "Michael Mouse", "Mortimer Mouse", "Maximillion Mouse"]},
+        options: ["Thomas Mouse", "Myles Mouse", "Mortimer Mouse", "Morgan Mouse"]},
     
         {prompt: "Which band recorded the song \“Let it be\”?", name: "q24", 
         options: ["U2", "The Beatles", "Queen", "The Who"]},
@@ -282,29 +282,23 @@ const correctAnswers = {
 
         {prompt: "What is 31 x 4?", name: "q44", options: ["124", "93", "112", "128"]},
 
-        {prompt: "Which number is not a multiple of 6?", name: "q45",
-            options: ["24", "66", "32", "6"]},
+        {prompt: "Which number is not a multiple of 6?", name: "q45", options: ["24", "66", "32", "6"]},
 
-        {prompt: "Choose the sum that does not equal one", name: "q46", 
-          options: ["0.51 + 0.49", "0.14 + 0.88", "0.76 + 0.24", "0.80 + 0.20"]},
+        {prompt: "Choose the sum that does not equal one", name: "q46", options: ["0.51 + 0.49", "0.14 + 0.88", "0.76 + 0.24", "0.80 + 0.20"]},
 
-        {prompt: "What is 130 + 170?", name: "q47",
-            options: ["300", "400", "280", "330"]},
+        {prompt: "What is 130 + 170?", name: "q47", options: ["300", "400", "280", "330"]},
 
         {prompt: "What is 36/8?", name: "q48", options: ["4", "4.5", "5.5", "6"]},
 
         {prompt: "What is 56 - 58?", name: "q49", options: ["4", "1", "2", "-2"]},
 
-        {prompt: "What is 98.7 + 0.5?", name: "q50",
-            options: ["99.2", "99.4", "100.2", "100.4"]},
+        {prompt: "What is 98.7 + 0.5?", name: "q50", options: ["99.2", "99.4", "100.2", "100.4"]},
 
         {prompt: "What is 23 + 78?", name: "q51", options: ["100", "101", "103", "104"]},
 
-        {prompt: "How many faces are on a cylinder?", name: "q52",
-            options: ["5", "4", "2", "3"]},
+        {prompt: "How many faces are on a cylinder?", name: "q52", options: ["5", "4", "2", "3"]},
 
-        {prompt: "Which of these numbers is prime?", name: "q53",
-            options: ["15", "16", "19", "21"]},
+        {prompt: "Which of these numbers is prime?", name: "q53", options: ["15", "16", "19", "21"]},
 
         {prompt: "Halve 13", name: "q54", options: ["5.5", "7.5", "6.5", "4.5"]},
 
@@ -318,8 +312,7 @@ const correctAnswers = {
 
         {prompt: "What is 56 + 42?", name: "q59", options: ["88", "98", "94", "86"]},
 
-        {prompt: "How many degrees are in a square?", name: "q60",
-            options: ["720", "360", "180", "420"]},
+        {prompt: "How many degrees are in a square?", name: "q60", options: ["720", "360", "180", "420"]},
 
         {prompt: "What is 5 x 13?", name: "q61", options: ["60", "75", "70", "65"]},
 
@@ -343,11 +336,9 @@ const correctAnswers = {
 
         {prompt: "What is 83 - 67?", name: "q71", options: ["15", "16", "22", "23"]},
 
-        {prompt: "What is 34.5 to the nearest ten?", name: "q72",
-            options: ["30", "40", "35", "34"]},
+        {prompt: "What is 34.5 to the nearest ten?", name: "q72", options: ["30", "40", "35", "34"]},
 
-        {prompt: "What is the square root of 64?", name: "q73",
-            options: ["6", "12", "8", "16"]},
+        {prompt: "What is the square root of 64?", name: "q73", options: ["6", "12", "8", "16"]},
 
         {prompt: "What is 54/6?", name: "q74", options: ["9", "6", "12", "4"]},
 
@@ -361,8 +352,7 @@ const correctAnswers = {
 
         {prompt: "What is 40 x 13?", name: "q79", options: ["520", "500", "540", "560"]},
 
-        {prompt: "How many centimetres are in 5 metres?", name: "q80",
-            options: ["50000", "500", "5", "50"]}
+        {prompt: "How many centimetres are in 5 metres?", name: "q80", options: ["50000", "500", "5", "50"]}
             ],
             };
 
@@ -378,7 +368,7 @@ const correctAnswers = {
       },
       questions: [
         {prompt: "Which type of conditioning is referred to as learning by association?", name: 'q81',
-          options: ['Classical conditioning', 'Operant conditioning', 'Positive reinforcement', 'The law of effect']}, 
+        options: ['Classical conditioning', 'Operant conditioning', 'Positive reinforcement', 'The law of effect']}, 
           
         {prompt: "Which researchers conducted the Little Albert study?", name: 'q82', 
         options: ['Skinner', 'Pavlov', 'Watson and Rayner', 'Loftus and Palmer']},
@@ -386,8 +376,8 @@ const correctAnswers = {
         {prompt: "Katie refuses to fasten her seatbelt, but ultimately does because her car begins playing an annoying ringing sound. Which type of reinforcement is this?", name: 'q83', 
         options: ['Positive reinforcement', 'Negative punishment', 'Positive punishment', 'Negative reinforcement']},
         
-        {prompt: "In the first stage of classical conditioning, which is the stimulus which eventually becomes the Conditioned Stimulus?", name: 'q84', 
-        options: ['The neutral stimulus', 'The unconditioned stimulus', 'The unconditioned response', 'The bell']},
+        {prompt: "In Pavlov's study, which of these acted as a neutral stimulus?", name: 'q84', 
+        options: ['The dog', 'The food', 'Salivation', 'The bell']},
         
         {prompt: "What is the term for when a conditioned response fades over time?", name: 'q85', 
         options: ['Contiguity', 'Extinction', 'Reacquisition', 'Spontaneous recovery']},
@@ -527,7 +517,7 @@ const correctAnswers = {
         options: ['Homer', 'Plato', 'Aristotle', 'Cicero']},
       ];
   
-      //if no skipped qs globally, nothing to attach basePG4Questions to, if else then merge arrays
+      // If no skipped qs globally, nothing to attach basePG4Questions to, if else then merge arrays.
       if (skipped_glob.length === 0) {
         return basePG4Questions.concat();
       } else {
@@ -571,6 +561,10 @@ const correctAnswers = {
         // COUNTING VARIABLES ================================================================
         let total_correct = 0;
         let total_answered = 0;
+
+        let total_correct_no_retry = 0;
+        let total_answered_no_retry = 0;
+
         let all_rts = [];
         let retry_rts = [];
         let rt_after_skip = [];
@@ -579,6 +573,8 @@ const correctAnswers = {
         let retry_correct = 0;
         let retry_incorrect = 0;
         let skipped_again = 0;
+        let total_skipped_overall = 0;
+        let page4_base_skipped = 0; // Logically, these shouldn't be skipped.
 
         let notFoundNextCounter = 0;
     
@@ -595,11 +591,23 @@ const correctAnswers = {
     
             if (acc === true) total_correct++;
             if (acc !== null) total_answered++;
+
+            if (acc === true && !q.endsWith("_retry")) total_correct_no_retry++;
+            if (acc !== null && !q.endsWith("_retry")) total_answered_no_retry++;
     
             if (rt_custom !== null && !q.endsWith("_retry")) all_rts.push(rt_custom);
             if (rt_custom !== null && q.endsWith("_retry")) retry_rts.push(rt_custom);
     
             if (wasSkipped) {
+              total_skipped_overall++; 
+              // Count only base (non-retry) page4 questions (q121–q125)
+              if (
+                !q.endsWith("_retry") &&
+                /^q12[1-5]$/.test(q)
+              ) {
+                page4_base_skipped++;
+              }
+
               skipped_questions.add(q);
     
               let foundNext = false;
@@ -613,8 +621,10 @@ const correctAnswers = {
                   break;
                 }
               }
-    
-              if (!foundNext) {
+              
+              const isLastQuestion = idx === qnames.length - 1;
+
+              if (!foundNext && isLastQuestion) {
                 if (trial.submit_latency_from_last !== undefined && trial.submit_latency_from_last !== null) {
                   rt_after_skip.push(trial.submit_latency_from_last);
                   notFoundNextCounter++;
@@ -646,6 +656,8 @@ const correctAnswers = {
     
         // PARTICIPANT-LEVEL VARIABLES ================================================================
         const accuracy_overall = total_answered > 0 ? total_correct / total_answered : null;
+
+        const accuracyNoRetries = total_answered_no_retry > 0 ? total_correct_no_retry / total_answered_no_retry : null;
     
         const rt_overall_mean = all_rts.length > 0
           ? all_rts.reduce((a, b) => a + b, 0) / all_rts.length
@@ -694,7 +706,14 @@ const correctAnswers = {
           trial_section: "summary",
           subject_id: subject_id,
           accuracy_overall: accuracy_overall,
+          total_correct: total_correct,
+          total_answered: total_answered,
+          accuracyNoRetries: accuracyNoRetries,
+          total_correct_no_retry: total_correct_no_retry,
+          total_answered_no_retry: total_answered_no_retry,
           rt_overall_mean: rt_overall_mean,
+          total_skipped_overall: total_skipped_overall,
+          page4_base_skipped: page4_base_skipped,
           retry_rts_mean: retry_rts_mean,
           rt_after_skip_mean: rt_after_skip_mean,
           notFoundNextCounter: notFoundNextCounter,
@@ -715,10 +734,9 @@ const correctAnswers = {
     data: {
       trial_section: 'end'
     },
-    choices: ['End Experiment'],
+    choices: ['<strong>END EXPERIMENT</strong>'],
     stimulus: `
-    <p>DATA SAVED SUCCESSFULLY.</p>
-    <p>Please click here to end the Experiment.</p>
-    <p>You will be redirected to the SONA platform to recieve your credits.</p>
+    <p style = "color:green; font-size:25px;"><strong>DATA SAVED SUCCESSFULLY!</strong></p>
+    <p>Please <strong>click the button below</strong> to end the Experiment and to be redirected to SONA <strong>to recieve your credits</strong>.</p>
     `
   };

@@ -18,12 +18,12 @@ input[type="radio"]:checked {
   }
 
   .jspsych-survey-multi-choice-question {
-    font-size: 16px;
+    font-size: 14px;
     margin-bottom: 8px;
   }
 
   .jspsych-survey-multi-choice-question p {
-    line-height: 1.5;
+    line-height: 1;
   }  
 
 /* ===== Custom radio (base) ===== */
@@ -32,8 +32,8 @@ input[type="radio"]:checked {
   -webkit-appearance: none;
   -moz-appearance: none;
 
-  width: 20px;
-  height: 20px;
+  width: 15px;
+  height: 15px;
   border: 2px solid black;
   border-radius: 50%;
   margin-right: 16px;
@@ -46,8 +46,8 @@ input[type="radio"]:checked {
 /* Checked dot */
 .jspsych-survey-multi-choice-option input[type="radio"]:checked::before {
   content: "";
-  width: 10px;
-  height: 10px;
+  width: 7px;
+  height: 7px;
   background: black;
   border-radius: 50%;
   position: absolute;
@@ -71,9 +71,9 @@ input[type="radio"]:checked {
 .jspsych-survey-multi-choice-option label {
   display: flex;
   align-items: center;
-  font-size: 16px;
+  font-size: 14px;
 }
 
 .jspsych-survey-multi-choice-option {
-  margin: 10px 0;
+  margin: 1px 0;
 }

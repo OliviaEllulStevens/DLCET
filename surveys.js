@@ -38,7 +38,7 @@ const infoConsent = {
   
                 <h4>Do I Have to Take Part?</h4>
                 <p>
-                  It is up to you to decide whether or not to take part. If you do decide to take part you will be given this information sheet to keep and be asked to sign a consent form. If you decide to take part, you are still free to withdraw at any time and without giving a reason. Choosing to either take part or not take part in the study will have no impact on your marks, assessments, or future studies.
+                  It is up to you to decide whether or not to take part. If you do decide to take part you will be given this information sheet to keep and be asked to sign a consent form. If you decide to take part, you are still free to withdraw at any time and without giving a reason by simply closing the window. Choosing to either take part or not take part in the study will have no impact on your marks, assessments, or future studies.
                 </p>
   
                 <h4>What Will Happen to Me If I Take Part?</h4>
@@ -102,7 +102,7 @@ const infoConsent = {
                 <br>
                 <p style="max-width:1000px; margin:0 auto; line-height:1.6; text-align:left;">
                   Please read through the consent form carefully. If you are happy to proceed,
-                  please tick <strong>every</strong> box and click <strong>Complete</strong>.
+                  please tick <strong>every</strong> box and click <strong>'Complete'</strong>.
                   If you do <strong>not</strong> consent, please exit the window and simply close your browser.
                 </p>
                 <br>
@@ -209,12 +209,12 @@ const instructions = {
                   </li>
                   </ul>
                 <p style="margin-bottom: 20px; font-size: 20px">
-                  After you complete all three pages of questions, you will be allowed to take a break.
+                  After you complete all three pages of questions, there will be a break.
                 </p>
                 <p style="margin-bottom: 20px; font-size: 20px">
                   After your break, you will complete a questionnaire in which you will be asked to rate how strongly you agree or disagree with a series of statements, and you may also choose to provide demographic information.
                 </p>
-                <p style="margin-bottom: 20px; font-size: 20px">Click <strong>'Complete'</strong> to begin. The questionnaire will start immediately.</p>
+                <p style="margin-bottom: 20px; font-size: 20px"><strong>Click 'Complete' to begin</strong> and to acknowledge you have read the instructions. The questionnaire will start immediately. If you no longer want to participate, simply exit by closing the tab. </p>
               </div>
               `,
           }
