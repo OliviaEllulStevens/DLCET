@@ -690,12 +690,30 @@ const correctAnswers = {
         let asrs_total_hyp = 0;
         let asrs_total_overall = 0;
 
+        let asrs_flat = {};
+
         asrs_trials.forEach(t => {
           if (typeof t.asrs_total_ina === "number") {
             asrs_total_ina = t.asrs_total_ina;
           }
           if (typeof t.asrs_total_hyp === "number") {
             asrs_total_hyp = t.asrs_total_hyp;
+          }
+
+          // Flatten item-level responses
+          if (t.response && typeof t.response === "object") {
+
+          Object.entries(t.response).forEach(([key, value]) => {
+
+          // Detect which subscale this trial is
+          if (typeof t.asrs_total_ina === "number") {
+            asrs_flat["ina_" + key] = value;
+          }
+
+          if (typeof t.asrs_total_hyp === "number") {
+            asrs_flat["hyp_" + key] = value;
+          }
+          });
           }
         });
 
@@ -721,6 +739,7 @@ const correctAnswers = {
           skipped_incorrect_retry: retry_incorrect,
           skipped_again: skipped_again,
           ...demo,
+          ...asrs_flat,
           asrs_total_ina: asrs_total_ina,
           asrs_total_hyp: asrs_total_hyp,
           asrs_total_overall: asrs_total_overall,

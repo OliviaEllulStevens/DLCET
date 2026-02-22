@@ -207,13 +207,6 @@ if (data.skipped) {
     data["skipped_" + key] = data.skipped[key]; 
   }
 }
-
-// ---- FLATTEN ASRS responses ----
-if (data.trial_section === "asrsQs" && data.response) {
-    for (const [key, value] of Object.entries(data.response)) {
-        data[key] = value; 
-    }
-}
     };
 
   return trial;
