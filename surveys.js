@@ -325,8 +325,6 @@ const demographics = {
           "How often do you misplace or have difficulty finding things at home or at work?",
       ASRS_11:
           "How often are you distracted by activity or noise around you?",
-      ASRS_12:
-          "How often do you leave your seat in meetings or other situations in which you are expected to remain seated?",
   }
 
   const asrs_items_hyp = {
@@ -334,6 +332,8 @@ const demographics = {
         "How often do you fidget or squirm with your hands or feet when you have to sit down for a long time?",
     ASRS_6:
         "How often do you feel overly active and compelled to do things, like you were driven by a motor?",
+    ASRS_12:
+        "How often do you leave your seat in meetings or other situations in which you are expected to remain seated?",
     ASRS_13:
         "How often do you feel restless or fidgety?",
     ASRS_14:
