@@ -293,7 +293,7 @@ const demographics = {
                         title: "Do you have a diagnosis of Attention Defecit Hyperactivity Disorder (ADHD)?",
                         name: "adhd",
                         type: "radiogroup",
-                        choices: ["Yes, I have combined type ADHD", "Yes, I have inattentive type ADHD", "I have a formal diagnosis of ADHD, but I do not know what type", "No, but I self diagnose", "No"],
+                        choices: ["Yes, I have combined type ADHD", "Yes, I have hyperactive type ADHD", "Yes, I have inattentive type ADHD", "I have a formal diagnosis of ADHD, but I do not know what type", "No, but I self diagnose", "No"],
                         isRequired: true,
                     },
                 ]
